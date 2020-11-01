@@ -1,4 +1,4 @@
-package proyecto.pkg1.datos;
+package GUI;
 
 //Para el manejo de la mano de cartas
 public class DoublyLinkedList {
