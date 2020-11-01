@@ -1,4 +1,4 @@
-package proyecto.pkg1.datos;
+package GUI;
 
 public class Hand_GUI extends javax.swing.JFrame {
 
