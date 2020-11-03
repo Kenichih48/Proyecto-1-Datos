@@ -23,13 +23,171 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cardSlot6" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot7" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot8" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot9" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="cardSlot1" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot2" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot3" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cardSlot4" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cardSlot10" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="cardSlot5" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="portLabel" min="-2" pref="191" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="playCard" min="-2" pref="204" max="-2" attributes="0"/>
+                      <EmptySpace pref="84" max="32767" attributes="0"/>
+                      <Component id="passTurn" min="-2" pref="209" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="portLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="playCard" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="passTurn" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+              <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cardSlot4" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot2" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot1" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot3" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot5" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cardSlot9" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot7" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot6" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot8" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="cardSlot10" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="37" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="portLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="&quot;Server port: &quot; + str_port" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="playCard">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Play Selected Card"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playCardActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="passTurn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Pass turn"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passTurnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="instructionLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Please select a card you want to play from your hand"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 10"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 1"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cardSlot1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 4"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 6"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 7"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 8"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="cardSlot9">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Card Slot 9"/>
+      </Properties>
+    </Component>
+  </SubComponents>
 </Form>
