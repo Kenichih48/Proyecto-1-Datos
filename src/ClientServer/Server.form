@@ -24,17 +24,28 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="portLabel" min="-2" pref="191" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Component id="portLabel" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="enemyHealth" max="32767" attributes="0"/>
+                          <Component id="myMana" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="myHealth" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="enemyHealthF" alignment="0" max="32767" attributes="0"/>
+                          <Component id="myHealthF" alignment="0" max="32767" attributes="0"/>
+                          <Component id="myManaF" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="89" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="playCard" min="-2" pref="204" max="-2" attributes="0"/>
-                      <EmptySpace pref="84" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="passTurn" min="-2" pref="209" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="cardSlot6" min="-2" pref="100" max="-2" attributes="0"/>
@@ -74,36 +85,57 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="portLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="114" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="playCard" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="passTurn" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="portLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="enemyHealth" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="enemyHealthF" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cardSlot4" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot2" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot1" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot3" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot5" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="cardSlot4" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="cardSlot2" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="cardSlot1" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="cardSlot3" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="cardSlot5" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="myHealth" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="myHealthF" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cardSlot9" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot7" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot6" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot8" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cardSlot10" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cardSlot9" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cardSlot7" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cardSlot6" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cardSlot8" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cardSlot10" alignment="3" min="-2" pref="128" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Component id="myMana" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="myManaF" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -189,6 +221,51 @@
           <Connection code="&quot;Server port: &quot; + str_port" type="code"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="enemyHealth">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enemy&apos;s health"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="myHealth">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Your health"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="myMana">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Your mana"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="enemyHealthF">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="String.valueOf(enemyHealthInt)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="myHealthF">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="String.valueOf(myHealthInt)" type="code"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="myManaF">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="String.valueOf(myManaInt)" type="code"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
