@@ -35,10 +35,6 @@
                                       <Component id="myHealth" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="myHealthF" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="enemyHealth" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="enemyHealthF" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="myMana" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="myManaF" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
                               </Group>
@@ -50,9 +46,16 @@
                       <Component id="passTurn" min="-2" pref="209" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="58" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="enemyHealth" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="enemyHealthF" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="enemyManaF" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
@@ -120,11 +123,15 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="portLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="enemyHealth" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="enemyHealthF" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="enemyManaF" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="myHealth" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="myHealthF" min="-2" max="-2" attributes="0"/>
@@ -155,7 +162,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="passTurn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Pass turn"/>
+        <Property name="text" type="java.lang.String" value="End turn"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passTurnActionPerformed"/>
@@ -226,6 +233,9 @@
           <Connection code="String.valueOf(enemyHealthInt)" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="myHealthF">
       <Properties>
@@ -263,6 +273,22 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Your mana"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enemy&apos;s mana"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="enemyManaF">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="String.valueOf(enemyManaInt)" type="code"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
