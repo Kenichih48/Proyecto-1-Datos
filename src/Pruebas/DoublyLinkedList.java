@@ -1,4 +1,4 @@
-package GUI;
+package Pruebas;
 
 //Para el manejo de la mano de cartas
 public class DoublyLinkedList {
