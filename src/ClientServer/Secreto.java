@@ -13,7 +13,7 @@ public Secreto(){
         super();
     }
     
-    public Secreto(String secreto, int id, int costo, String tipo){
+    public Secreto(String secreto, int id, int costo){
         super();
         this.secreto = secreto;
         this.costo = costo;

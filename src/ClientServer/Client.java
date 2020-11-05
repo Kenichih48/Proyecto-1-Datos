@@ -33,6 +33,7 @@ public class Client extends javax.swing.JFrame {
     static boolean Osecreto16 = false;
     static boolean Osecreto17 = false;
     static boolean Osecreto18 = false;
+    static boolean secreto18 = false;
     static boolean Osecreto19 = false;
     static boolean Osecreto20 = false;
     static int enemyHealthInt = 1000;
@@ -531,10 +532,7 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 18){
                                             JOptionPane.showMessageDialog(null, "You have played Graveyard secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
-                                            if (enemyManaInt >= 600){
-                                                enemyManaInt -= 200;
-                                                myManaInt += 200;
-                                            }
+                                            secreto18 = true;
                                         }else if (id == 19){
                                             JOptionPane.showMessageDialog(null, "You have played Miner secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -594,10 +592,7 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 18){
                                             JOptionPane.showMessageDialog(null, "You have played Graveyard secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
-                                            if (enemyManaInt >= 600){
-                                                enemyManaInt -= 200;
-                                                myManaInt += 200;
-                                            }
+                                            secreto18 = true;
                                         }else if (id == 19){
                                             JOptionPane.showMessageDialog(null, "You have played Miner secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -717,6 +712,23 @@ public class Client extends javax.swing.JFrame {
             //Code that receives message/object
             String jsonInput = "";
             while(!jsonInput.equals("exit")){
+                if (myManaInt >= 600 && Osecreto18 == true){
+                    myManaInt -= 200;
+                    enemyManaInt += 200;
+                    myManaF.setText(String.valueOf(myManaInt));
+                    enemyManaF.setText(String.valueOf(enemyManaInt));
+                    Osecreto18 = false;
+                    JOptionPane.showMessageDialog(null, "Your opponent played Graveyard secret",
+                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                }else if (enemyManaInt >= 600 && secreto18 == true){
+                    enemyManaInt -= 200;
+                    myManaInt += 200;
+                    myManaF.setText(String.valueOf(myManaInt));
+                    enemyManaF.setText(String.valueOf(enemyManaInt));
+                    secreto18 = false;
+                    JOptionPane.showMessageDialog(null, "Your played Graveyard secret has activated",
+                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                }
                 jsonInput = dinput.readUTF();
                 Gson gson3 = new Gson();
                 //checks if message received is mensaje

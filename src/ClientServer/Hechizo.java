@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Hechizo implements Serializable{
     private int costo;
     private String hechizo;
-    private String efecto;
     private String tipo;
     private int id;
     
@@ -13,7 +12,7 @@ public Hechizo(){
         super();
     }
     
-    public Hechizo(String hechizo, String efecto, int costo, int id){
+    public Hechizo(String hechizo, int costo, int id){
         super();
         this.hechizo = hechizo;
         this.costo = costo;
