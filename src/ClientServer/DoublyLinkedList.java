@@ -2,7 +2,7 @@ package ClientServer;
 
 //Para el manejo de la mano de cartas
 public class DoublyLinkedList {
-    static Node head;
+    static Node head = null;
     
     public static class Node{
         String tipo;

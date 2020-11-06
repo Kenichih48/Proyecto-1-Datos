@@ -759,12 +759,6 @@ public class Server extends javax.swing.JFrame {
             deck_count += 1;
         }
         
-        while (deck_count > 0){
-            System.out.println(Deck.get_nombre());
-            Deck.next();
-            deck_count -= 1;
-        }
-        
         Hand_Creation(Deck);
         
         try{
@@ -960,7 +954,7 @@ public class Server extends javax.swing.JFrame {
         int costo = Deck.get_costo();
         int id = Deck.get_id();
         int ataque = Deck.get_ataque();
-        while (hand_count < 3){
+        while (hand_count < 4){
             Hand.addNode(tipo,nombre,costo,id,ataque);
             Deck.next();
             hand_count += 1;
