@@ -265,6 +265,7 @@ public class Client extends javax.swing.JFrame {
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
                                         esbirro.setataque(esbirro.getataque()*2);
+                                        hechizo1 = false;
                                     }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
                                         esbirro.setataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
@@ -301,6 +302,7 @@ public class Client extends javax.swing.JFrame {
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
                                         esbirro.setataque(esbirro.getataque()*2);
+                                        hechizo1 = false;
                                     }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
                                         esbirro.setataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
@@ -406,7 +408,7 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         hechizo7 = true;
                                     }else if (id == 8){
-                                        JOptionPane.showMessageDialog(null, "You freezed your opponent for his next turn",
+                                        JOptionPane.showMessageDialog(null, "You froze your opponent for his next turn",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }else if (id == 8){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",

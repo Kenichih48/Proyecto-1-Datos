@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
  
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -283,6 +285,7 @@ public class Server extends javax.swing.JFrame {
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
                                         esbirro.setataque(esbirro.getataque()*2);
+                                        hechizo1 = false;
                                     }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
                                         esbirro.setataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
@@ -319,6 +322,7 @@ public class Server extends javax.swing.JFrame {
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
                                         esbirro.setataque(esbirro.getataque()*2);
+                                        hechizo1 = false;
                                     }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
                                         esbirro.setataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
@@ -496,7 +500,7 @@ public class Server extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         hechizo7 = true;
                                     }else if (id == 8){
-                                        JOptionPane.showMessageDialog(null, "You freezed your opponent for his next turn",
+                                        JOptionPane.showMessageDialog(null, "You froze your opponent for his next turn",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }else if (id == 9){
                                         JOptionPane.showMessageDialog(null, "You dealt 200 damage to your opponent",
@@ -679,7 +683,7 @@ public class Server extends javax.swing.JFrame {
     private void cardSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot1ActionPerformed
         if (myTurn == true){
             cardSelected = true;
-            esbirro = new Esbirro("Baby Dragon", 60, 200);
+            esbirro = new Esbirro("Baby Dragon", 60, 200); 
             cardType = esbirro.gettipo();
         }else JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
                 "Warning", JOptionPane.WARNING_MESSAGE);
@@ -695,6 +699,17 @@ public class Server extends javax.swing.JFrame {
 
     
     public static void main(String args[]) {
+        int deck_count = 0;
+        int card_getter;
+        int hand_count = 0;
+        Random rand = new Random();
+        List<List<String>> list = new ArrayList<>();
+        ArrayList<String> unit = new ArrayList<>();
+        Pila Deck = new Pila();
+        
+        int a = 0;
+        int b = 5;
+        
         {
             //JSON parser object to parse read file
             JSONParser jsonParser = new JSONParser();
@@ -706,9 +721,21 @@ public class Server extends javax.swing.JFrame {
 
                 JSONArray cardList = (JSONArray) obj;
                 System.out.println(cardList + "\n");
-
-                //Iterate over employee array
-                cardList.forEach( card -> parseCardObject( (JSONObject) card ) );
+                //Iterate over card array
+                cardList.forEach( card -> parseCardObject( (JSONObject) card , unit) );
+                
+                while (b <= 150){
+                    List<String> unit2 = unit.subList(a,b);
+                    list.add(unit2);
+                    a += 5;
+                    b+=5;
+                }
+                System.out.println(list);
+                    
+                
+                //while (deck < 20) {
+                  //  Deck.insert(cardList[i]);
+                    //}
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -723,6 +750,22 @@ public class Server extends javax.swing.JFrame {
                 new Server().setVisible(true);
             }
         });
+        
+        
+        while (deck_count < 20){
+            card_getter = rand.nextInt(30);
+            Deck.insert(list.get(card_getter).get(0),list.get(card_getter).get(1),
+                    Integer.parseInt(list.get(card_getter).get(2)),Integer.parseInt(list.get(card_getter).get(3)),Integer.parseInt(list.get(card_getter).get(4)));
+            deck_count += 1;
+        }
+        
+        while (deck_count > 0){
+            System.out.println(Deck.get_nombre());
+            Deck.next();
+            deck_count -= 1;
+        }
+        
+        Hand_Creation(Deck);
         
         try{
             //setting up the socket
@@ -876,7 +919,7 @@ public class Server extends javax.swing.JFrame {
         }
     }
     
-    private static void parseCardObject(JSONObject card) 
+    private static void parseCardObject(JSONObject card, ArrayList unit) 
     {
         //Get card object within list
         JSONObject cardObject = (JSONObject) card.get("card");
@@ -893,20 +936,41 @@ public class Server extends javax.swing.JFrame {
         String costo = (String) cardObject.get("costo");    
         System.out.println("costo: " + costo);
         
-        switch(tipo){
-            case "esbirro":
-                String ataque = (String) cardObject.get("ataque");    
-                System.out.println("ataque: " + ataque + "\n");
-                break;
-            case "hechizo":
-                String id = (String) cardObject.get("id");    
-                System.out.println("id: " + id + "\n");  
-                break;  
-            case "secreto":
-                String ids = (String) cardObject.get("id");    
-                System.out.println("id: " + ids + "\n");  
-                break;  
+        String id = (String) cardObject.get("id");    
+        System.out.println("id: " + id);  
+        
+        String ataque = (String) cardObject.get("ataque");    
+        System.out.println("ataque: " + ataque + "\n");        
+        
+        unit.add(tipo);
+        unit.add(nombre);
+        unit.add(costo);
+        unit.add(id);
+        unit.add(ataque);        
+        
+        //Deck.insert(tipo,nombre,costo,id,ataque);
+    
+    }
+    
+    public static void Hand_Creation(Pila Deck){
+        int hand_count = 0;
+        DoublyLinkedList Hand = new DoublyLinkedList();
+        String tipo = Deck.get_tipo();
+        String nombre = Deck.get_nombre();
+        int costo = Deck.get_costo();
+        int id = Deck.get_id();
+        int ataque = Deck.get_ataque();
+        while (hand_count < 3){
+            Hand.addNode(tipo,nombre,costo,id,ataque);
+            Deck.next();
+            hand_count += 1;
+            tipo = Deck.get_tipo();
+            nombre = Deck.get_nombre();
+            costo = Deck.get_costo();
+            id = Deck.get_id();
+            ataque = Deck.get_ataque();
         }
+        Hand.printNodes();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

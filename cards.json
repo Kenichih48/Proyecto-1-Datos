@@ -3,7 +3,8 @@
         "card":{
             "tipo": "esbirro"
             "nombre": "Barbarian",
-            "costo": "100",        
+            "costo": "100",
+            "id": "21",        
             "ataque": "100" 
          }
     },
@@ -12,6 +13,7 @@
             "tipo": "esbirro"
             "nombre": "HogRider",
             "costo": "100",
+            "id": "22",
             "ataque": "125"
             
          }
@@ -20,7 +22,8 @@
         "card":{
             "tipo": "esbirro"
             "nombre": "Giant",
-            "costo": "300",        
+            "costo": "300",    
+            "id": "23",    
             "ataque": "200" 
          }
     },
@@ -29,6 +32,7 @@
             "tipo": "esbirro"
             "nombre": "Pekka",
             "costo": "400",
+            "id": "24",
             "ataque": "250"
             
          }
@@ -37,7 +41,8 @@
         "card":{
             "tipo": "esbirro"
             "nombre": "IceWizard",
-            "costo": "150",        
+            "costo": "150", 
+            "id": "25",       
             "ataque": "150" 
          }
     },
@@ -46,6 +51,7 @@
             "tipo": "esbirro"
             "nombre": "BabyDragon",
             "costo": "150",
+            "id": "26",
             "ataque": "200"
             
          }
@@ -54,7 +60,8 @@
         "card":{
             "tipo": "esbirro"
             "nombre": "Skeleton",
-            "costo": "50",        
+            "costo": "50", 
+            "id": "27",       
             "ataque": "25" 
          }
     },
@@ -63,6 +70,7 @@
             "tipo": "esbirro"
             "nombre": "Witch",
             "costo": "125",
+            "id": "28",
             "ataque": "125"
             
          }
@@ -71,7 +79,8 @@
         "card":{
             "tipo": "esbirro"
             "nombre": "Goblin",
-            "costo": "75",        
+            "costo": "75",   
+            "id": "29",     
             "ataque": "50" 
          }
     },
@@ -80,6 +89,7 @@
             "tipo": "esbirro"
             "nombre": "Minion",
             "costo": "75",
+            "id": "30",
             "ataque": "50"
             
          }
@@ -90,6 +100,7 @@
             "nombre": "Clone Spell",
             "costo": "250",
             "id": "1"
+            "ataque": "0"
          }
     },
     {
@@ -98,6 +109,7 @@
             "nombre": "Heal Spell",
             "costo": "200",
             "id": "2"
+            "ataque": "0"
          }
     },
     {
@@ -106,6 +118,7 @@
             "nombre": "Elixir Collector",
             "costo": "300",
             "id": "3"
+            "ataque": "0"
          }
     },
     {
@@ -114,6 +127,7 @@
             "nombre": "Log",
             "costo": "50",
             "id": "4"
+            "ataque": "0"
          }
     },
     {
@@ -122,6 +136,7 @@
             "nombre": "Zap Spell",
             "costo": "75",
             "id": "5"
+            "ataque": "0"
          }
     },
     {
@@ -130,6 +145,7 @@
             "nombre": "Bandit",
             "costo": "275",
             "id": "6"
+            "ataque": "0"
          }
     },
     {
@@ -138,6 +154,7 @@
             "nombre": "Supreme Power",
             "costo": "800",
             "id": "7"
+            "ataque": "0"
          }
     },
     {
@@ -146,6 +163,7 @@
             "nombre": "Freeze Spell",
             "costo": "500",
             "id": "8"
+            "ataque": "0"
          }
     },
     {
@@ -154,6 +172,7 @@
             "nombre": "Lightning Spell",
             "costo": "100",
             "id": "9"
+            "ataque": "0"
          }
     },
     {
@@ -162,6 +181,7 @@
             "nombre": "Earthquake Spell",
             "costo": "200",
             "id": "10"
+            "ataque": "0"
          }
     },
     {
@@ -170,6 +190,7 @@
             "nombre": "Goblin Barrel",
             "costo": "100",
             "id": "11"
+            "ataque": "0"
          }
     },
     {
@@ -178,6 +199,7 @@
             "nombre": "Skeleton Barrel",
             "costo": "25",
             "id": "12"
+            "ataque": "0"
          }
     },
     {
@@ -186,6 +208,7 @@
             "nombre": "Barbarian Barrel",
             "costo": "250",
             "id": "13"
+            "ataque": "0"
          }
     },
     {
@@ -194,6 +217,7 @@
             "nombre": "Tesla Coil",
             "costo": "50",
             "id": "14"
+            "ataque": "0"
          }
     },
     {
@@ -202,6 +226,7 @@
             "nombre": "Shield",
             "costo": "150",
             "id": "15"
+            "ataque": "0"
          }
     },
     {
@@ -210,6 +235,7 @@
             "nombre": "Mirror",
             "costo": "200",
             "id": "16"
+            "ataque": "0"
          }
     },
     {
@@ -218,6 +244,7 @@
             "nombre": "Goblin Cage",
             "costo": "300",
             "id": "17"
+            "ataque": "0"
          }
     },
     {
@@ -226,6 +253,7 @@
             "nombre": "Graveyard",
             "costo": "100",
             "id": "18"
+            "ataque": "0"
          }
     },
     {
@@ -234,6 +262,7 @@
             "nombre": "Miner",
             "costo": "175",
             "id": "19"
+            "ataque": "0"
          }
     },
     {
@@ -242,6 +271,7 @@
             "nombre": "Mega Knight",
             "costo": "250",
             "id": "20"
+            "ataque": "0"
          }
     }
 ]
