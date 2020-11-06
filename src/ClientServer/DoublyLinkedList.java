@@ -44,7 +44,7 @@ public class DoublyLinkedList {
         }
     }
     
-    public static void printNodes(){
+    /*public static void printNodes(){
         Node temp = head;
         while (temp.next != head){
             System.out.println(temp.nombre);
@@ -60,7 +60,7 @@ public class DoublyLinkedList {
             temp = temp.prev;
         }
         System.out.println(temp.nombre);
-    }
+    }*/
     
     /*public static void main(String[] args)
     {
@@ -75,4 +75,51 @@ public class DoublyLinkedList {
         System.out.printf("Circular doubly linked list: ");
         printNodes();
     }*/
+    
+    public static String get_head_tipo(){
+        Node temp2 = head;
+        return temp2.tipo;
+    }
+    
+    public static String get_head_nombre(){
+        Node temp2 = head;
+        return temp2.nombre;
+    }
+    
+    public static int get_head_costo(){
+        Node temp2 = head;
+        return temp2.costo;
+    }
+    
+    public static int get_head_id(){
+        Node temp2 = head;
+        return temp2.id;
+    }
+    
+    public static int get_head_ataque(){
+        Node temp2 = head;
+        return temp2.ataque;
+    }
+    
+    public static void Next(){
+        Node temp = head;
+        temp = temp.next;
+        head = temp;        
+    }
+    
+    public static void Prev(){
+        Node temp = head;
+        temp = temp.prev;
+        head = temp;        
+    }
+    
+    public static int count_hand(){
+        Node temp = head;
+        int hand_count = 0;
+        while (temp.next != head){
+            hand_count += 1;
+            temp = temp.next;
+        }
+        return hand_count;
+    }    
 }

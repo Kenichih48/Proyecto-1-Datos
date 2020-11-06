@@ -55,6 +55,8 @@ public class Server extends javax.swing.JFrame {
     static Esbirro esbirro = new Esbirro();
     static Hechizo hechizo = new Hechizo();
     static Secreto secreto = new Secreto();
+    static DoublyLinkedList Hand = new DoublyLinkedList();
+    static Pila Deck = new Pila();
     
 
     public Server() {
@@ -69,13 +71,6 @@ public class Server extends javax.swing.JFrame {
         cardSlot1 = new javax.swing.JButton();
         cardSlot2 = new javax.swing.JButton();
         cardSlot3 = new javax.swing.JButton();
-        cardSlot4 = new javax.swing.JButton();
-        cardSlot5 = new javax.swing.JButton();
-        cardSlot6 = new javax.swing.JButton();
-        cardSlot7 = new javax.swing.JButton();
-        cardSlot8 = new javax.swing.JButton();
-        cardSlot9 = new javax.swing.JButton();
-        cardSlot10 = new javax.swing.JButton();
         playCard = new javax.swing.JButton();
         passTurn = new javax.swing.JButton();
         instructionLabel = new javax.swing.JLabel();
@@ -105,21 +100,13 @@ public class Server extends javax.swing.JFrame {
             }
         });
 
+        cardSlot3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Elixir.jpg"))); // NOI18N
         cardSlot3.setText("Card Slot 3");
-
-        cardSlot4.setText("Card Slot 4");
-
-        cardSlot5.setText("Card Slot 5");
-
-        cardSlot6.setText("Card Slot 6");
-
-        cardSlot7.setText("Card Slot 7");
-
-        cardSlot8.setText("Card Slot 8");
-
-        cardSlot9.setText("Card Slot 9");
-
-        cardSlot10.setText("Card Slot 10");
+        cardSlot3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cardSlot3ActionPerformed(evt);
+            }
+        });
 
         playCard.setText("Play Selected Card");
         playCard.addActionListener(new java.awt.event.ActionListener() {
@@ -180,89 +167,63 @@ public class Server extends javax.swing.JFrame {
                             .addComponent(enemyHealth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(enemyHealthF)
                             .addComponent(enemyManaF))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cardSlot6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cardSlot4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(instructionLabel)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cardSlot10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardSlot5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(38, 38, 38))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(169, 169, 169))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(instructionLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(portLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enemyHealth)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addComponent(instructionLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(portLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyHealth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cardSlot4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cardSlot5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(enemyManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(myHealth)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(83, 83, 83)
+                                .addComponent(myMana)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(myHealth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cardSlot9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardSlot7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardSlot6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardSlot8, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cardSlot10, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(myMana)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGap(83, 83, 83)
+                        .addComponent(instructionLabel)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         pack();
@@ -668,6 +629,11 @@ public class Server extends javax.swing.JFrame {
                 System.out.println("El objeto enviado es: " + endedturn.getmensaje());
                 myManaInt += 250;
                 myManaF.setText(String.valueOf(myManaInt));
+                Deck.next();
+                if (Deck.ult == null && Hand.count_hand()==0){
+                    //Código para acabar el juego
+                }
+                Hand.addNode(Deck.get_tipo(),Deck.get_nombre(),Deck.get_costo(),Deck.get_id(),Deck.get_ataque());
                 myTurn = false;
                 
             }catch(Exception e){
@@ -683,19 +649,36 @@ public class Server extends javax.swing.JFrame {
     private void cardSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot1ActionPerformed
         if (myTurn == true){
             cardSelected = true;
-            esbirro = new Esbirro("Baby Dragon", 60, 200); 
-            cardType = esbirro.gettipo();
+            String type = Hand.get_head_tipo();
+            if (type == "esbirro"){
+                esbirro = new Esbirro(Hand.get_head_nombre(),Hand.get_head_ataque(),Hand.get_head_costo()); 
+                cardType = type;
+            }
+            else if (type == "hechizo"){
+                hechizo = new Hechizo(Hand.get_head_nombre(),Hand.get_head_costo(),Hand.get_head_id());
+                cardType = type;
+            }
+            else if (type == "secreto"){
+                secreto = new Secreto(Hand.get_head_nombre(),Hand.get_head_id(),Hand.get_head_costo());
+                cardType = type;
+            }
         }else JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
                 "Warning", JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_cardSlot1ActionPerformed
 
     private void cardSlot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot2ActionPerformed
         if (myTurn == true){
-            cardSelected = true;
-            hechizo = new Hechizo("heal", 200, 2);
-            cardType = hechizo.gettipo();
+            cardSelected = false;
+            Hand.Next();
         } 
     }//GEN-LAST:event_cardSlot2ActionPerformed
+
+    private void cardSlot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot3ActionPerformed
+        if (myTurn == true){
+            cardSelected = false;
+            Hand.Prev();
+        } 
+    }//GEN-LAST:event_cardSlot3ActionPerformed
 
     
     public static void main(String args[]) {
@@ -705,7 +688,7 @@ public class Server extends javax.swing.JFrame {
         Random rand = new Random();
         List<List<String>> list = new ArrayList<>();
         ArrayList<String> unit = new ArrayList<>();
-        Pila Deck = new Pila();
+        
         
         int a = 0;
         int b = 5;
@@ -948,7 +931,6 @@ public class Server extends javax.swing.JFrame {
     
     public static void Hand_Creation(Pila Deck){
         int hand_count = 0;
-        DoublyLinkedList Hand = new DoublyLinkedList();
         String tipo = Deck.get_tipo();
         String nombre = Deck.get_nombre();
         int costo = Deck.get_costo();
@@ -964,20 +946,14 @@ public class Server extends javax.swing.JFrame {
             id = Deck.get_id();
             ataque = Deck.get_ataque();
         }
-        Hand.printNodes();
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cardSlot1;
-    private javax.swing.JButton cardSlot10;
     private javax.swing.JButton cardSlot2;
     private javax.swing.JButton cardSlot3;
-    private javax.swing.JButton cardSlot4;
-    private javax.swing.JButton cardSlot5;
-    private javax.swing.JButton cardSlot6;
-    private javax.swing.JButton cardSlot7;
-    private javax.swing.JButton cardSlot8;
-    private javax.swing.JButton cardSlot9;
     private javax.swing.JLabel enemyHealth;
     private static javax.swing.JTextField enemyHealthF;
     private static javax.swing.JTextField enemyManaF;
