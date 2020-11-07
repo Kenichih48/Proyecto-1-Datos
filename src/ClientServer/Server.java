@@ -692,14 +692,14 @@ public class Server extends javax.swing.JFrame {
     private void cardSlot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot2ActionPerformed
         if (myTurn == true){
             cardSelected = false;
-            selectedcard = selectedcard.next();
+            selectedcard = selectedcard.next_card();
         } 
     }//GEN-LAST:event_cardSlot2ActionPerformed
 
     private void cardSlot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot3ActionPerformed
         if (myTurn == true){
             cardSelected = false;
-            selectedcard = selectedcard.previous();
+            selectedcard = selectedcard.previous_card();
         } 
     }//GEN-LAST:event_cardSlot3ActionPerformed
 

@@ -38,11 +38,11 @@ public class Node_Double_Linked{
         return ataque;
     }
     
-    public Node_Double_Linked next(){
+    public Node_Double_Linked next_card(){
         return next;      
     }
     
-    public Node_Double_Linked previous(){
+    public Node_Double_Linked previous_card(){
         return prev;      
     }
 }
