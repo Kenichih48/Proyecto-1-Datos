@@ -49,7 +49,7 @@ public class Server extends javax.swing.JFrame {
     static int enemyHealthInt = 1000;
     static int enemyManaInt = 200;
     static int myHealthInt = 1000;
-    static int myManaInt = 200;
+    static int myManaInt = 2000;
     static int contadorTurno = 0;
     static String cardType;
     static Esbirro esbirro = new Esbirro();
@@ -239,7 +239,8 @@ public class Server extends javax.swing.JFrame {
                 int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", 
                 "Select an option", JOptionPane.YES_NO_OPTION);
                 if (confirm == 0){
-                        //Checks if played card is esbirro
+                        cardType = selectedcard.get_tipo();
+                        //Checks if played card is esbirro                        
                         if ("esbirro".equals(cardType)){
                             try {
                                 //Checks if there's enough mana and hechizo7 not active
@@ -270,14 +271,13 @@ public class Server extends javax.swing.JFrame {
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto16 = false;
                                     }
-                                    
                                     String str_esbirroPlayed = gson1.toJson(esbirro);
                                     doutput.writeUTF(str_esbirroPlayed);
                                     enemyHealthInt = enemyHealthInt - esbirro.getataque();
                                     enemyHealthF.setText(String.valueOf(enemyHealthInt));
                                     myManaInt = myManaInt - esbirro.getcosto();
                                     myManaF.setText(String.valueOf(myManaInt));
-                                    System.out.println("El esbirro enviado es: " + esbirro.getesbirro()); 
+                                    System.out.println("El esbirro enviado es: " + selectedcard.get_nombre()); 
                                     Hand.deleteNode(selectedcard);
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
@@ -312,7 +312,7 @@ public class Server extends javax.swing.JFrame {
                                     doutput.writeUTF(str_esbirroPlayed);
                                     enemyHealthInt = enemyHealthInt - esbirro.getataque();
                                     enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                                    System.out.println("El esbirro enviado es: " + esbirro.getesbirro());
+                                    System.out.println("El esbirro enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
@@ -426,7 +426,7 @@ public class Server extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);    
                                         Osecreto20 = false;
                                     }
-                                    System.out.println("El hechizo enviado es: " + hechizo.gethechizo());
+                                    System.out.println("El hechizo enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
@@ -482,7 +482,7 @@ public class Server extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "You destroyed one of your opponent's cards",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }
-                                    System.out.println("El hechizo enviado es: " + hechizo.gethechizo());
+                                    System.out.println("El hechizo enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
@@ -539,7 +539,7 @@ public class Server extends javax.swing.JFrame {
                                         doutput.writeUTF(str_secretPlayed);
                                         myManaInt = myManaInt - secreto.getcosto();
                                         myManaF.setText(String.valueOf(myManaInt));
-                                        System.out.println("El secreto enviado es: " + secreto.getsecreto());
+                                        System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
@@ -553,7 +553,7 @@ public class Server extends javax.swing.JFrame {
                                         doutput.writeUTF(str_secretPlayed);
                                         myManaInt = myManaInt - secreto.getcosto();
                                         myManaF.setText(String.valueOf(myManaInt));
-                                        System.out.println("El secreto enviado es: " + secreto.getsecreto());
+                                        System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
@@ -605,7 +605,7 @@ public class Server extends javax.swing.JFrame {
                                         doutput.writeUTF(str_secretPlayed);
                                         myManaInt = myManaInt - secreto.getcosto();
                                         myManaF.setText(String.valueOf(myManaInt));
-                                        System.out.println("El secreto enviado es: " + secreto.getsecreto());
+                                        System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
@@ -619,7 +619,7 @@ public class Server extends javax.swing.JFrame {
                                         doutput.writeUTF(str_secretPlayed);
                                         myManaInt = myManaInt - secreto.getcosto();
                                         myManaF.setText(String.valueOf(myManaInt));
-                                        System.out.println("El secreto enviado es: " + secreto.getsecreto());
+                                        System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
@@ -670,20 +670,17 @@ public class Server extends javax.swing.JFrame {
     private void cardSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot1ActionPerformed
         if (myTurn == true){
             cardSelected = true;
-            
             String type = selectedcard.get_tipo();
-           
+            System.out.println(type);
+            System.out.println(selectedcard.get_nombre());
             if (type == "esbirro"){
                 esbirro = new Esbirro(selectedcard.get_nombre(),selectedcard.get_ataque(),selectedcard.get_costo()); 
-                cardType = type;
             }
             else if (type == "hechizo"){
                 hechizo = new Hechizo(selectedcard.get_nombre(),selectedcard.get_costo(),selectedcard.get_id());
-                cardType = type;
             }
             else if (type == "secreto"){
                 secreto = new Secreto(selectedcard.get_nombre(),selectedcard.get_id(),selectedcard.get_costo());
-                cardType = type;
             }
         }else JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
                 "Warning", JOptionPane.WARNING_MESSAGE);
@@ -872,7 +869,7 @@ public class Server extends javax.swing.JFrame {
                     System.out.println("El hechizo recibido es: " + hechizoReceived.gethechizo());
                 //checks if message received is secreto
                 }else if (jsonInput.contains("secreto")){
-                    Secreto secretoReceived = new Secreto();
+                        Secreto secretoReceived = new Secreto();
                     secretoReceived = gson3.fromJson(jsonInput, secretoReceived.getClass());
                     enemyManaInt -= secretoReceived.getcosto();
                     enemyManaF.setText(String.valueOf(enemyManaInt));
