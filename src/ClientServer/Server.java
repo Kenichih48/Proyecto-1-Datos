@@ -31,6 +31,7 @@ public class Server extends javax.swing.JFrame {
     static boolean myTurn = true;
     static boolean hechizo1 = false;
     static boolean hechizo7 = false;
+    static boolean Ohechizo7 = false;
     static boolean Osecreto11 = false;
     static boolean Osecreto12 = false;
     static boolean Osecreto13 = false;
@@ -49,6 +50,7 @@ public class Server extends javax.swing.JFrame {
     static int contadorTurno = 0;
     static int hand_count = 0;
     static int deck_count = 16;
+    static int contadorTurnoEnemy = 0;
     static String cardType;
     static Esbirro esbirro = new Esbirro();
     static Hechizo hechizo = new Hechizo();
@@ -56,6 +58,7 @@ public class Server extends javax.swing.JFrame {
     static DoublyLinkedList Hand = new DoublyLinkedList();
     static Pila Deck = new Pila();
     static Node_Double_Linked selectedcard;
+    static Node_Double_Linked cardreceived;
     
 
     public Server() {
@@ -297,38 +300,38 @@ public class Server extends javax.swing.JFrame {
                         if ("esbirro".equals(cardType)){
                             try {
                                 //Checks if there's enough mana and hechizo7 not active
-                                if (myManaInt - esbirro.getcosto() >= 0 && hechizo7 == false){
+                                if (myManaInt - selectedcard.get_costo() >= 0 && hechizo7 == false){
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
-                                        esbirro.setataque(esbirro.getataque()*2);
+                                        esbirro.set_ataque(selectedcard.get_ataque()*2);
                                         hechizo1 = false;
-                                    }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto11 == true && 100 < selectedcard.get_costo() && selectedcard.get_costo() <= 250){
+                                        esbirro.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto11 = false;
-                                    }else if (Osecreto12 == true && esbirro.getcosto() <= 100){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto12 == true && selectedcard.get_costo() <= 100){
+                                        esbirro.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Skeleton Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto12 = false;
-                                    }else if (Osecreto13 == true && esbirro.getcosto() > 250){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto13 == true && selectedcard.get_costo() > 250){
+                                        esbirro.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Barbarian Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto13 = false;
-                                    }else if (Osecreto16 == true && esbirro.getataque() < 200){
-                                        myHealthInt -= esbirro.getataque();
+                                    }else if (Osecreto16 == true && selectedcard.get_ataque() < 200){
+                                        myHealthInt -= selectedcard.get_ataque();
                                         myHealthF.setText(String.valueOf(myHealthInt));
                                         JOptionPane.showMessageDialog(null, "Your opponent played Mirror",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
-                                        Osecreto16 = false;
+                                        doutput.writeUTF(String.valueOf(esbirro.get_ataque()));
                                     }
                                     String str_esbirroPlayed = gson1.toJson(esbirro);
                                     doutput.writeUTF(str_esbirroPlayed);
-                                    enemyHealthInt = enemyHealthInt - esbirro.getataque();
-                                    enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                                    myManaInt = myManaInt - esbirro.getcosto();
+                                    enemyHealthInt -= selectedcard.get_ataque();
+                                    enemyHealthF.setText("asdf," + String.valueOf(esbirro.get_ataque()));
+                                    myManaInt -= selectedcard.get_costo();
                                     myManaF.setText(String.valueOf(myManaInt));
                                     System.out.println("El esbirro enviado es: " + selectedcard.get_nombre()); 
                                     Hand.deleteNode(selectedcard);
@@ -340,31 +343,37 @@ public class Server extends javax.swing.JFrame {
                                 }else if (hechizo7 == true){
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
-                                        esbirro.setataque(esbirro.getataque()*2);
+                                        selectedcard.set_ataque(selectedcard.get_ataque()*2);
                                         hechizo1 = false;
-                                    }else if (Osecreto11 == true && 100 < esbirro.getcosto() && esbirro.getcosto() <= 250){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto11 == true && 100 < selectedcard.get_costo() && selectedcard.get_costo() <= 250){
+                                        selectedcard.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Goblin Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto11 = false;
-                                    }else if (Osecreto12 == true && esbirro.getcosto() <= 100){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto12 == true && selectedcard.get_costo() <= 100){
+                                        selectedcard.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Skeleton Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto12 = false;
-                                    }else if (Osecreto13 == true && esbirro.getcosto() > 250){
-                                        esbirro.setataque(0);
+                                    }else if (Osecreto13 == true && selectedcard.get_costo() > 250){
+                                        selectedcard.set_ataque(0);
                                         JOptionPane.showMessageDialog(null, "Your opponent played Barbarian Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto13 = false;
+                                    }else if (Osecreto16 == true && selectedcard.get_ataque() < 200){
+                                        myHealthInt -= selectedcard.get_ataque();
+                                        myHealthF.setText("asdf," + String.valueOf(esbirro.get_ataque()));
+                                        JOptionPane.showMessageDialog(null, "Your opponent played Mirror",
+                                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        doutput.writeUTF(String.valueOf(esbirro.get_ataque()));
                                     }
-                                    if (contadorTurno >= 3){
+                                    if (contadorTurno >= 2){
                                         contadorTurno = 0;
                                         hechizo7 = false;
                                     }
                                     String str_esbirroPlayed = gson1.toJson(esbirro);
                                     doutput.writeUTF(str_esbirroPlayed);
-                                    enemyHealthInt = enemyHealthInt - esbirro.getataque();
+                                    enemyHealthInt -= selectedcard.get_ataque();
                                     enemyHealthF.setText(String.valueOf(enemyHealthInt));
                                     System.out.println("El esbirro enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
@@ -386,14 +395,14 @@ public class Server extends javax.swing.JFrame {
                         }else if ("hechizo".equals(cardType)){
                             try {
                                 //Checks if there's enough mana and hechizo7 not active
-                                if (myManaInt - hechizo.getcosto() >= 0 && hechizo7 == false){
+                                if (myManaInt - selectedcard.get_costo() >= 0 && hechizo7 == false){
                                     Gson gson1 = new Gson();
                                     String str_hechizoPlayed = gson1.toJson(hechizo);
                                     doutput.writeUTF(str_hechizoPlayed);
-                                    myManaInt = myManaInt - hechizo.getcosto();
+                                    myManaInt -= selectedcard.get_costo();
                                     myManaF.setText(String.valueOf(myManaInt));
                                     
-                                    int id = hechizo.getid();
+                                    int id = selectedcard.get_id();
                                     if (id == 1 && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your next attacks yields double the damage",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -419,6 +428,8 @@ public class Server extends javax.swing.JFrame {
                                     }else if (id == 4 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You vanished 100 mana from your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        enemyManaInt -= 100;
+                                        enemyManaF.setText(String.valueOf(enemyManaInt));
                                     }else if (id == 4 && Osecreto15 == true && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -490,54 +501,103 @@ public class Server extends javax.swing.JFrame {
                                     cardSelected = false;
                                 //Checks if hechizo7 is active    
                                 }else if (hechizo7 == true){
-                                    if (contadorTurno >= 3){
+                                    if (contadorTurno >= 2){
                                         contadorTurno = 0;
                                         hechizo7 = false;
                                     }
                                     Gson gson1 = new Gson();
                                     String str_hechizoPlayed = gson1.toJson(hechizo);
                                     doutput.writeUTF(str_hechizoPlayed);
-                                    int id = hechizo.getid();
-                                    if (id == 1){
-                                        JOptionPane.showMessageDialog(null, "Your next attack yields double the damage",
+                                    int id = selectedcard.get_id();
+                                    if (id == 1 && Osecreto20 == false){
+                                        JOptionPane.showMessageDialog(null, "Your next attacks yields double the damage",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         hechizo1 = true;
-                                    }else if (id == 2){
+                                    }else if (id == 1 && Osecreto20 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent has used Mega Knight secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto20 = false;
+                                    }else if (id == 2 && Osecreto15 == false){
                                         JOptionPane.showMessageDialog(null, "You restored 250 health",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         myHealthInt += 250;
                                         myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (id == 2 && Osecreto15 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto15 = false;
                                     }else if (id == 3){
                                         JOptionPane.showMessageDialog(null, "You restored 600 mana",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         myManaInt += 600;
                                         myManaF.setText(String.valueOf(myManaInt));
-                                    }else if (id == 4){
+                                    }else if (id == 4 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You vanished 100 mana from your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
-                                    }else if (id == 5){
+                                        enemyManaInt -= 100;
+                                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                                    }else if (id == 4 && Osecreto15 == true && Osecreto20 == false){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto15 = false;
+                                    }else if (id == 4 && Osecreto15 == false && Osecreto20 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto20 = false;
+                                    }else if (id == 5 && Osecreto14 == false && Osecreto15 == false){
                                         JOptionPane.showMessageDialog(null, "You dealt 50 damage to your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         enemyHealthInt -= 50;
                                         enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                                    }else if (id == 6){
+                                    }else if (id == 5 && Osecreto14 == true && Osecreto15 == false){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Tesla Coil secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto14 = false;
+                                    }else if (id == 5 && Osecreto14 == false && Osecreto15 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto15 = false;
+                                    }else if (id == 6 && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                                    }else if (id == 6 && Osecreto20 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto20 = false;
                                     }else if (id == 7){
                                         JOptionPane.showMessageDialog(null, "You can now place 3 cards without mana usage",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         hechizo7 = true;
                                     }else if (id == 8){
-                                        JOptionPane.showMessageDialog(null, "You froze your opponent for his next turn",
+                                        JOptionPane.showMessageDialog(null, "You freezed your opponent for his next turn",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
-                                    }else if (id == 9){
+                                    }else if (id == 8){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                    }else if (id == 9 && Osecreto14 == false && Osecreto15 == false){
                                         JOptionPane.showMessageDialog(null, "You dealt 200 damage to your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         enemyHealthInt -= 200;
                                         enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                                    }else if (id == 10){
+                                    }else if (id == 9 && Osecreto14 == true && Osecreto15 == false){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Tesla Coil secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto14 = false;
+                                    }else if (id == 9 && Osecreto14 == false && Osecreto15 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto15 = false;
+                                    }else if (id == 10 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You destroyed one of your opponent's cards",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                                    }else if (id == 10 && Osecreto15 == true && Osecreto20 == false){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        Osecreto15 = false;
+                                    }else if (id == 10 && Osecreto15 == false && Osecreto20 == true){
+                                        JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
+                                    "Information", JOptionPane.INFORMATION_MESSAGE);    
+                                        Osecreto20 = false;
                                     }
                                     System.out.println("El hechizo enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
@@ -557,11 +617,11 @@ public class Server extends javax.swing.JFrame {
                         }else if ("secreto".equals(cardType))
                             try {
                                 //Checks if there's enough mana and hechizo7 not active
-                                if (myManaInt - secreto.getcosto() >= 0 && hechizo7 == false){
+                                if (myManaInt - selectedcard.get_costo() >= 0 && hechizo7 == false){
                                     Gson gson1 = new Gson();
                                     String str_secretPlayed = gson1.toJson(secreto);
                                     if (Osecreto19 == false){
-                                        int id = secreto.getid();
+                                        int id = selectedcard.get_id();
                                         if (id == 11){
                                             JOptionPane.showMessageDialog(null, "You have played Golbin Barrel secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -595,7 +655,7 @@ public class Server extends javax.swing.JFrame {
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - secreto.getcosto();
+                                        myManaInt -= selectedcard.get_costo();
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -610,7 +670,7 @@ public class Server extends javax.swing.JFrame {
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - secreto.getcosto();
+                                        myManaInt = myManaInt - selectedcard.get_costo();
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -622,14 +682,14 @@ public class Server extends javax.swing.JFrame {
                                     
                                 //Checks if hechizo7 is active    
                                 }else if (hechizo7 == true){
-                                    if (contadorTurno >= 3){
+                                    if (contadorTurno >= 2){
                                         contadorTurno = 0;
                                         hechizo7 = false;
                                     }
                                     Gson gson1 = new Gson();
-                                    String str_secretPlayed = gson1.toJson(secreto.getmessage());
+                                    String str_secretPlayed = gson1.toJson(secreto);
                                     if (Osecreto19 == false){
-                                        int id = secreto.getid();
+                                        int id = selectedcard.get_id();
                                         if (id == 11){
                                             JOptionPane.showMessageDialog(null, "You have played Golbin Barrel secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -663,7 +723,7 @@ public class Server extends javax.swing.JFrame {
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - secreto.getcosto();
+                                        myManaInt = myManaInt - selectedcard.get_costo();
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -678,7 +738,9 @@ public class Server extends javax.swing.JFrame {
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - secreto.getcosto();
+                                        System.out.println("my mana int: " + myManaInt);
+                                        myManaInt -= selectedcard.get_costo();
+                                        System.out.println("my mana int after: " + myManaInt);
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -742,15 +804,19 @@ public class Server extends javax.swing.JFrame {
                 String type = selectedcard.get_tipo();
                 System.out.println(type);
                 System.out.println(selectedcard.get_nombre());
-                if (type == "esbirro"){
-                    esbirro = new Esbirro(selectedcard.get_nombre(),selectedcard.get_ataque(),selectedcard.get_costo()); 
-                }
-                else if (type == "hechizo"){
-                    hechizo = new Hechizo(selectedcard.get_nombre(),selectedcard.get_costo(),selectedcard.get_id());
-                }
-                else if (type == "secreto"){
-                    secreto = new Secreto(selectedcard.get_nombre(),selectedcard.get_id(),selectedcard.get_costo());
-                }
+            
+            if ("esbirro".equals(type)){
+                System.out.println("entre a esbirro");
+                esbirro = new Esbirro(selectedcard.get_tipo(),selectedcard.get_nombre(),selectedcard.get_costo(),
+                        selectedcard.get_id(),selectedcard.get_ataque());
+            }
+            else if ("hechizo".equals(type)){
+                hechizo = new Hechizo(selectedcard.get_tipo(),selectedcard.get_nombre(),selectedcard.get_costo(),
+                        selectedcard.get_id(),selectedcard.get_ataque());
+            }
+            else if ("secreto".equals(type)){
+                secreto = new Secreto(selectedcard.get_tipo(),selectedcard.get_nombre(),selectedcard.get_costo(),
+                        selectedcard.get_id(),selectedcard.get_ataque());
             }
         }else JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
                 "Warning", JOptionPane.WARNING_MESSAGE);
@@ -892,113 +958,245 @@ public class Server extends javax.swing.JFrame {
                     }
                     }
                 }
+                
+                }else if (jsonInput.contains("asdf,")){
+                    String mirrorValue = jsonInput.substring(jsonInput.lastIndexOf(",") + 1);
+                    enemyHealthInt -= Integer.valueOf(mirrorValue);
+                    enemyHealthF.setText(String.valueOf(enemyHealthInt));
                     
                 //checks if message received is esbirro
                 }else if (jsonInput.contains("esbirro")){
-                    Esbirro esbirroReceived = new Esbirro();
-                    esbirroReceived = gson3.fromJson(jsonInput, esbirroReceived.getClass());
-                    myHealthInt = esbirroReceived.getataque();
-                    myHealthF.setText(String.valueOf(myHealthInt));
-                    enemyManaInt -= esbirroReceived.getcosto();
-                    enemyManaF.setText(String.valueOf(enemyManaInt));
-                    System.out.println("El esbirro recibido es: " + esbirroReceived.getesbirro());
+                    if (Ohechizo7 == false){
+                        Esbirro esbirroreceived = new Esbirro();
+                        esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
+                        myHealthInt -= esbirroreceived.get_ataque();
+                        myHealthF.setText(String.valueOf(myHealthInt));
+                        System.out.println(esbirroreceived.get_costo());
+                        enemyManaInt -= esbirroreceived.get_costo();
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                        System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
+                    }else if (Ohechizo7 == true){
+                        Esbirro esbirroreceived = new Esbirro();
+                        esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
+                        myHealthInt -= esbirroreceived.get_ataque();
+                        myHealthF.setText(String.valueOf(myHealthInt));
+                        System.out.println(esbirroreceived.get_costo());
+                        System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
+                        contadorTurnoEnemy += 1;
+                        if (contadorTurnoEnemy >= 2){
+                            contadorTurnoEnemy = 0;
+                            Ohechizo7 = false;
+                        }
+                    }
                 //checks if message received is hechizo    
                 }else if (jsonInput.contains("hechizo")){
-                    Hechizo hechizoReceived = new Hechizo();
-                    hechizoReceived = gson3.fromJson(jsonInput, hechizoReceived.getClass());
-                    enemyManaInt -= hechizoReceived.getcosto();
-                    enemyManaF.setText(String.valueOf(enemyManaInt));
-                    int id = hechizoReceived.getid();
-                    if (id == 1){
-                        JOptionPane.showMessageDialog(null, "Your opponent's next attack yields double the damage",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 2){
-                        JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                        enemyHealthInt += 250;
-                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                    }else if (id == 3){
-                        JOptionPane.showMessageDialog(null, "Your opponent restored 600 mana",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 4){
-                        JOptionPane.showMessageDialog(null, "Your opponent vanished 100 mana from you",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                        myManaInt -= 100;
-                        myManaF.setText(String.valueOf(myManaInt));
-                    }else if (id == 5){
-                        JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage to you",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                        myHealthInt -= 50;
-                        myHealthF.setText(String.valueOf(myHealthInt));
-                    }else if (id == 6){
-                        JOptionPane.showMessageDialog(null, "Your opponent stole a card from you",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 7){
-                        JOptionPane.showMessageDialog(null, "Your opponent can now place 3 cards without mana usage",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 8){
-                        JOptionPane.showMessageDialog(null, "Your oponent freezed you for the next turn",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 9){
-                        JOptionPane.showMessageDialog(null, "Your opponent dealt 200 damage to you",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                        myHealthInt -= 200;
-                        myHealthF.setText(String.valueOf(myHealthInt));
-                    }else if (id == 10){
-                        JOptionPane.showMessageDialog(null, "Your opponent destroyed one of your cards",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                    if (Ohechizo7 == false){
+                        Hechizo hechizoreceived = new Hechizo();
+                        hechizoreceived = gson3.fromJson(jsonInput, hechizoreceived.getClass());
+                        enemyManaInt -= hechizoreceived.get_costo();
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                        int id = hechizoreceived.get_id();
+                        if (id == 1){
+                            JOptionPane.showMessageDialog(null, "Your opponent's next attack yields double the damage",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 2){
+                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            enemyHealthInt += 250;
+                            enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                        }else if (id == 3){
+                            JOptionPane.showMessageDialog(null, "Your opponent restored 600 mana",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            enemyManaInt += 600;
+                            enemyManaF.setText(String.valueOf(enemyManaInt));
+                        }else if (id == 4){
+                            JOptionPane.showMessageDialog(null, "Your opponent vanished 100 mana from you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myManaInt -= 100;
+                            myManaF.setText(String.valueOf(myManaInt));
+                        }else if (id == 5){
+                            JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage to you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myHealthInt -= 50;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                        }else if (id == 6){
+                            JOptionPane.showMessageDialog(null, "Your opponent stole a card from you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 7){
+                            JOptionPane.showMessageDialog(null, "Your opponent can now place 3 cards without mana usage",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            Ohechizo7 = true;
+                        }else if (id == 8){
+                            JOptionPane.showMessageDialog(null, "Your oponent freezed you for the next turn",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 9){
+                            JOptionPane.showMessageDialog(null, "Your opponent dealt 200 damage to you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myHealthInt -= 200;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                        }else if (id == 10){
+                            JOptionPane.showMessageDialog(null, "Your opponent destroyed one of your cards",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        System.out.println("El hechizo recibido es: " + hechizoreceived.get_nombre());
+                        
+                    }else if (Ohechizo7 == true){
+                        Hechizo hechizoreceived = new Hechizo();
+                        hechizoreceived = gson3.fromJson(jsonInput, hechizoreceived.getClass());
+                        int id = hechizoreceived.get_id();
+                        if (id == 1){
+                            JOptionPane.showMessageDialog(null, "Your opponent's next attack yields double the damage",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 2){
+                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            enemyHealthInt += 250;
+                            enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                        }else if (id == 3){
+                            JOptionPane.showMessageDialog(null, "Your opponent restored 600 mana",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 4){
+                            JOptionPane.showMessageDialog(null, "Your opponent vanished 100 mana from you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myManaInt -= 100;
+                            myManaF.setText(String.valueOf(myManaInt));
+                        }else if (id == 5){
+                            JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage to you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myHealthInt -= 50;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                        }else if (id == 6){
+                            JOptionPane.showMessageDialog(null, "Your opponent stole a card from you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 7){
+                            JOptionPane.showMessageDialog(null, "Your opponent can now place 3 cards without mana usage",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            Ohechizo7 = true;
+                        }else if (id == 8){
+                            JOptionPane.showMessageDialog(null, "Your oponent freezed you for the next turn",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 9){
+                            JOptionPane.showMessageDialog(null, "Your opponent dealt 200 damage to you",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                            myHealthInt -= 200;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                        }else if (id == 10){
+                            JOptionPane.showMessageDialog(null, "Your opponent destroyed one of your cards",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        System.out.println("El hechizo recibido es: " + hechizoreceived.get_nombre());
+                        
+                        contadorTurnoEnemy += 1;
+                        if (contadorTurnoEnemy >= 2){
+                            contadorTurnoEnemy = 0;
+                            Ohechizo7 = false;
+                        }
                     }
-                    System.out.println("El hechizo recibido es: " + hechizoReceived.gethechizo());
+                    
+                    }else if (Ohechizo7 == true){
                 //checks if message received is secreto
                 }else if (jsonInput.contains("secreto")){
-                        Secreto secretoReceived = new Secreto();
-                    secretoReceived = gson3.fromJson(jsonInput, secretoReceived.getClass());
-                    enemyManaInt -= secretoReceived.getcosto();
-                    enemyManaF.setText(String.valueOf(enemyManaInt));
-                    int id = secretoReceived.getid();
-                    if (id == 11){
-                        Osecreto11 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 12){
-                        Osecreto12 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 13){
-                        Osecreto13 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 14){
-                        Osecreto14 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 15){
-                        Osecreto15 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 16){
-                        Osecreto16 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 17){
-                        Osecreto17 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 18){
-                        Osecreto18 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 19){
-                        Osecreto19 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (id == 20){
-                        Osecreto20 = true;
-                        JOptionPane.showMessageDialog(null, "Your opponent played a secret",
-                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    System.out.println("El secreto recibido es: " + secretoReceived.getsecreto());
-                    
+                    if (Ohechizo7 == false){
+                        Secreto secretoreceived = new Secreto();
+                        secretoreceived = gson3.fromJson(jsonInput, secretoreceived.getClass());
+                        enemyManaInt -= secretoreceived.get_costo();
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                        int id = secretoreceived.get_id();
+                        if (id == 11){
+                            Osecreto11 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 12){
+                            Osecreto12 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 13){
+                            Osecreto13 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 14){
+                            Osecreto14 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 15){
+                            Osecreto15 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 16){
+                            Osecreto16 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 17){
+                            Osecreto17 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 18){
+                            Osecreto18 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 19){
+                            Osecreto19 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 20){
+                            Osecreto20 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        System.out.println("El secreto recibido es: " + secretoreceived.get_nombre());
+                        
+                    }else if (Ohechizo7 == true);
+                    Secreto secretoreceived = new Secreto();
+                        secretoreceived = gson3.fromJson(jsonInput, secretoreceived.getClass());
+                        int id = secretoreceived.get_id();
+                        if (id == 11){
+                            Osecreto11 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 12){
+                            Osecreto12 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 13){
+                            Osecreto13 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 14){
+                            Osecreto14 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 15){
+                            Osecreto15 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 16){
+                            Osecreto16 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 17){
+                            Osecreto17 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 18){
+                            Osecreto18 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 19){
+                            Osecreto19 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }else if (id == 20){
+                            Osecreto20 = true;
+                            JOptionPane.showMessageDialog(null, "Your opponent played a secret",
+                        "Information", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        System.out.println("El secreto recibido es: " + secretoreceived.get_nombre());
+                        
+                        contadorTurnoEnemy += 1;
+                        if (contadorTurnoEnemy >= 2){
+                            contadorTurnoEnemy = 0;
+                            Ohechizo7 = false;
+                        }
                 }
                         
             }

@@ -3,83 +3,50 @@ package ClientServer;
 import java.io.Serializable;
 
 public class Hechizo implements Serializable{
-    private int costo;
-    private String hechizo;
-    private String tipo;
-    private int id;
+    String tipo;
+    String nombre;
+    int costo;
+    int id;
+    int ataque;
     
 public Hechizo(){
         super();
     }
     
-    public Hechizo(String hechizo, int costo, int id){
+    public Hechizo(String tipo, String nombre, int costo, int id, int ataque){
         super();
-        this.hechizo = hechizo;
+        this.tipo = tipo;
+        this.nombre = nombre;
         this.costo = costo;
         this.id = id;
-        this.tipo = "hechizo";
+        this.ataque = ataque;
     }
     
-    public int getcosto(){
+    public int get_costo(){
         return costo;
     }
     
-    public String gethechizo(){
-        return hechizo;
+    public String get_nombre(){
+        return nombre;
     }
     
-    public String gettipo(){
+    public String get_tipo(){
         return tipo;
     }
     
-    public int getid(){
+    public int get_id(){
         return id;
     }
     
-    public void setcosto(int costo){
+    public void set_costo(int costo){
         this.costo = costo;
     }
     
-    public void sethechizo(String hechizo){
-        this.hechizo = hechizo;
+    public void set_nombre(String nombre){
+        this.nombre = nombre;
     }
     
-    public void setid(int id){
+    public void set_id(int id){
         this.id = id;
     }
-    
-    public String efecto(){
-        if (id == 1){
-            //next attack deals double damage
-            return "double damage";
-        }else if (id == 2){
-            //heals 250 hp
-            return "heals 250 hp";
-        }else if (id == 3){
-            //gives 600 mana
-            return "gives 600 mana";
-        }else if (id == 4){
-            //takes 100 mana from oponent
-            return "vanish 100 mana from opponent";
-        }else if (id == 5){
-            //deals 50 damage to opponent
-            return "deals 50 damage";
-        }else if (id == 6){
-            //steals random card from oponent
-            return "steals random card";
-        }else if (id == 7){
-            //can place 3 cards without mana usage
-            return "can place 3 cards without mana usage";
-        }else if (id == 8){
-            //oponent cant attack in next turn
-            return "opponent cant attack in next turn";
-        }else if (id == 9){
-            //deals 200 damage to oponent
-            return "deals 200 damage";
-        }else if (id == 10){
-            //destroys random oponent card
-            return "destroys random card from opponent";
-        }
-        return null;
-    }        
 }

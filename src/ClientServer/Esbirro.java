@@ -3,48 +3,55 @@ package ClientServer;
 import java.io.Serializable;
 
 public class Esbirro implements Serializable{
-    private int ataque;
-    private int costo;
-    private String esbirro;
-    private String tipo;
+    String tipo;
+    String nombre;
+    int costo;
+    int id;
+    int ataque;
     
     public Esbirro(){
         super();
     }
     
-    public Esbirro(String esbirro, int ataque, int costo){
+    public Esbirro(String tipo, String nombre, int costo, int id, int ataque){
         super();
-        this.esbirro = esbirro;
-        this.ataque = ataque;
+        this.tipo = tipo;
+        this.nombre = nombre;
         this.costo = costo;
-        this.tipo = "esbirro";
+        this.id = id;
+        this.ataque = ataque;
+        
     }
     
-    public int getataque(){
+    public int get_ataque(){
         return ataque;
     }
     
-    public int getcosto(){
+    public int get_costo(){
         return costo;
     }
     
-    public String getesbirro(){
-        return esbirro;
+    public String get_nombre(){
+        return nombre;
     }
     
-    public String gettipo(){
+    public String get_tipo(){
         return tipo;
     }
     
-    public void setataque(int ataque){
+    public int get_id(){
+        return id;
+    }
+    
+    public void set_ataque(int ataque){
         this.ataque = ataque;
     }
     
-    public void setcosto(int costo){
+    public void set_costo(int costo){
         this.costo = costo;
     }
     
-    public void setesbirro(String esbirro){
-        this.esbirro = esbirro;
+    public void set_nombre(String nombre){
+        this.nombre = nombre;
     }
 }
