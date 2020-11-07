@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class Game {
     static public void main (String[] args){
         
-        int host = JOptionPane.showConfirmDialog(null, "Are you sure?", 
+        int host = JOptionPane.showConfirmDialog(null, "Do you want to host a game?", 
                 "Select an option", JOptionPane.YES_NO_OPTION);
         
         if (host == 0){

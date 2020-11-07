@@ -26,7 +26,7 @@ public class Server extends javax.swing.JFrame {
     static DataOutputStream doutput;
     static Random rand = new Random();
     static int port = rand.nextInt(65535-1080+1)+1080;
-    static String str_port;
+    static String str_port = String.valueOf(port);
     static boolean cardSelected = false;
     static boolean myTurn = true;
     static boolean hechizo1 = false;
@@ -333,6 +333,7 @@ public class Server extends javax.swing.JFrame {
                                     doutput.writeUTF(str_hechizoPlayed);
                                     myManaInt = myManaInt - hechizo.getcosto();
                                     myManaF.setText(String.valueOf(myManaInt));
+                                    
                                     int id = hechizo.getid();
                                     if (id == 1 && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your next attacks yields double the damage",
