@@ -24,13 +24,9 @@ public class Server extends javax.swing.JFrame {
     static Socket socket;
     static DataInputStream dinput;
     static DataOutputStream doutput;
-    static int port = 12345;
-    static String str_port = String.valueOf(port);
-    
-    /*static Random rand = new Random();
+    static Random rand = new Random();
     static int port = rand.nextInt(65535-1080+1)+1080;
-    static String str_port = String.valueOf(port);
-    */
+    static String str_port;
     static boolean cardSelected = false;
     static boolean myTurn = true;
     static boolean hechizo1 = false;

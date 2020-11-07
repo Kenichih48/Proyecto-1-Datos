@@ -19,8 +19,8 @@ public class Client extends javax.swing.JFrame {
     static Socket socket;
     static DataInputStream dinput;
     static DataOutputStream doutput;
-    static int port = 12345;
-    static String str_port = String.valueOf(port);
+    static int port;
+    static String str_port;
     static boolean cardSelected = false;
     static boolean myTurn = false;
     static boolean hechizo1 = false;
@@ -694,10 +694,10 @@ public class Client extends javax.swing.JFrame {
             }
         } 
         //Asking for the port number
-        /*String str_port = JOptionPane.showInputDialog("Please enter the port number of "
+        str_port = JOptionPane.showInputDialog("Please enter the port number of "
                 + "the game you want to join");
         port = Integer.valueOf(str_port);
-        */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Client().setVisible(true);
