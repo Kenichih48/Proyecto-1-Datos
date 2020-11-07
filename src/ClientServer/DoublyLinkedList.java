@@ -52,7 +52,6 @@ public class DoublyLinkedList {
             del.prev.next = del.next;
         }
         
-        return;
     }
     
     public static void printNodes(){

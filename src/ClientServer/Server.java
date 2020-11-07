@@ -47,6 +47,8 @@ public class Server extends javax.swing.JFrame {
     static int myHealthInt = 1000;
     static int myManaInt = 2000;
     static int contadorTurno = 0;
+    static int hand_count = 0;
+    static int deck_count = 16;
     static String cardType;
     static Esbirro esbirro = new Esbirro();
     static Hechizo hechizo = new Hechizo();
@@ -65,9 +67,9 @@ public class Server extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cardSlot1 = new javax.swing.JButton();
-        cardSlot2 = new javax.swing.JButton();
-        cardSlot3 = new javax.swing.JButton();
+        cardSlot = new javax.swing.JButton();
+        LeftArrow = new javax.swing.JButton();
+        RightArrow = new javax.swing.JButton();
         playCard = new javax.swing.JButton();
         passTurn = new javax.swing.JButton();
         instructionLabel = new javax.swing.JLabel();
@@ -80,28 +82,34 @@ public class Server extends javax.swing.JFrame {
         myManaF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         enemyManaF = new javax.swing.JTextField();
+        costoLabel1 = new javax.swing.JLabel();
+        HealthImage = new javax.swing.JLabel();
+        ManaImage2 = new javax.swing.JLabel();
+        ManaImage3 = new javax.swing.JLabel();
+        costoLabel2 = new javax.swing.JLabel();
+        ManaImage4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cardSlot1.setText("Card Slot 1");
-        cardSlot1.addActionListener(new java.awt.event.ActionListener() {
+        cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/HogRider.jpg"))); // NOI18N
+        cardSlot.setLabel("");
+        cardSlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cardSlot1ActionPerformed(evt);
+                cardSlotActionPerformed(evt);
             }
         });
 
-        cardSlot2.setText("Card Slot 2");
-        cardSlot2.addActionListener(new java.awt.event.ActionListener() {
+        LeftArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/LeftArrow.png"))); // NOI18N
+        LeftArrow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cardSlot2ActionPerformed(evt);
+                LeftArrowActionPerformed(evt);
             }
         });
 
-        cardSlot3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Elixir.jpg"))); // NOI18N
-        cardSlot3.setText("Card Slot 3");
-        cardSlot3.addActionListener(new java.awt.event.ActionListener() {
+        RightArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/RightArrow.png"))); // NOI18N
+        RightArrow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cardSlot3ActionPerformed(evt);
+                RightArrowActionPerformed(evt);
             }
         });
 
@@ -143,6 +151,26 @@ public class Server extends javax.swing.JFrame {
         enemyManaF.setEditable(false);
         enemyManaF.setText(String.valueOf(enemyManaInt));
 
+        costoLabel1.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        costoLabel1.setText("Costo");
+
+        HealthImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Health.png"))); // NOI18N
+
+        ManaImage2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        ManaImage2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Elixir Small.jpg"))); // NOI18N
+        ManaImage2.setMaximumSize(new java.awt.Dimension(50, 50));
+        ManaImage2.setMinimumSize(new java.awt.Dimension(50, 50));
+        ManaImage2.setPreferredSize(new java.awt.Dimension(50, 50));
+
+        ManaImage3.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        ManaImage3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Elixir.jpg"))); // NOI18N
+
+        costoLabel2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        costoLabel2.setText("Ataque");
+
+        ManaImage4.setFont(new java.awt.Font("Tempus Sans ITC", 1, 24)); // NOI18N
+        ManaImage4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Sword.jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,77 +179,106 @@ public class Server extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(portLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(myMana)
-                            .addComponent(myHealth)
-                            .addComponent(myHealthF, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                            .addComponent(myManaF)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
                             .addComponent(enemyHealth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(enemyHealthF)
-                            .addComponent(enemyManaF))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(enemyManaF)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(myHealth)
+                            .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(HealthImage)
+                            .addComponent(myMana)
+                            .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ManaImage3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(169, 169, 169))
+                        .addGap(207, 207, 207))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(instructionLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(LeftArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cardSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(instructionLabel)
+                            .addComponent(RightArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(costoLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ManaImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(costoLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ManaImage4)
+                        .addGap(331, 331, 331))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(portLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enemyHealth)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(portLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(enemyHealth)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(enemyManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(myHealth)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HealthImage)
+                        .addGap(18, 18, 18)
+                        .addComponent(myMana)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ManaImage3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(myHealth)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cardSlot)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(instructionLabel)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(RightArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83)
-                                .addComponent(myMana)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(costoLabel1)
+                                            .addComponent(ManaImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(costoLabel2)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ManaImage4))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cardSlot2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cardSlot1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cardSlot3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(instructionLabel)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                                .addGap(54, 54, 54)
+                                .addComponent(LeftArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
+
+        Image_mod(selectedcard.get_nombre());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,7 +287,7 @@ public class Server extends javax.swing.JFrame {
         //Checks if its your turn
         if (myTurn == true){
             //Checks if there's a card selected
-            if (cardSelected == true){
+            if (cardSelected == true && hand_count > 0){
                 //Pop up menu
                 int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", 
                 "Select an option", JOptionPane.YES_NO_OPTION);
@@ -275,6 +332,7 @@ public class Server extends javax.swing.JFrame {
                                     myManaF.setText(String.valueOf(myManaInt));
                                     System.out.println("El esbirro enviado es: " + selectedcard.get_nombre()); 
                                     Hand.deleteNode(selectedcard);
+                                    hand_count -= 1;
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     cardSelected = false;
@@ -310,6 +368,7 @@ public class Server extends javax.swing.JFrame {
                                     enemyHealthF.setText(String.valueOf(enemyHealthInt));
                                     System.out.println("El esbirro enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
+                                    hand_count -= 1;
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     contadorTurno += 1;
@@ -425,6 +484,7 @@ public class Server extends javax.swing.JFrame {
                                     }
                                     System.out.println("El hechizo enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
+                                    hand_count -= 1;
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     cardSelected = false;
@@ -481,6 +541,7 @@ public class Server extends javax.swing.JFrame {
                                     }
                                     System.out.println("El hechizo enviado es: " + selectedcard.get_nombre());
                                     Hand.deleteNode(selectedcard);
+                                    hand_count -= 1;
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     cardSelected = false;
@@ -538,6 +599,7 @@ public class Server extends javax.swing.JFrame {
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
+                                        hand_count -= 1;
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
                                         cardSelected = false;
@@ -552,6 +614,7 @@ public class Server extends javax.swing.JFrame {
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
+                                        hand_count -= 1;
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
                                         cardSelected = false;
@@ -604,6 +667,7 @@ public class Server extends javax.swing.JFrame {
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
+                                        hand_count -= 1;
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
                                         cardSelected = false;
@@ -618,6 +682,7 @@ public class Server extends javax.swing.JFrame {
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
+                                        hand_count -= 1;
                                         Node_Double_Linked head_card = Hand.get_head();
                                         selectedcard = head_card;
                                         cardSelected = false;
@@ -651,6 +716,9 @@ public class Server extends javax.swing.JFrame {
                 System.out.println("El objeto enviado es: " + endedturn.getmensaje());
                 myManaInt += 250;
                 myManaF.setText(String.valueOf(myManaInt));
+                if (hand_count == 0){
+                    Hand = new DoublyLinkedList();
+                }
                 myTurn = false;
                 
                 
@@ -664,44 +732,50 @@ public class Server extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passTurnActionPerformed
 
-    private void cardSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot1ActionPerformed
+    private void cardSlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlotActionPerformed
         if (myTurn == true){
-            cardSelected = true;
-            String type = selectedcard.get_tipo();
-            System.out.println(type);
-            System.out.println(selectedcard.get_nombre());
-            if (type == "esbirro"){
-                esbirro = new Esbirro(selectedcard.get_nombre(),selectedcard.get_ataque(),selectedcard.get_costo()); 
-            }
-            else if (type == "hechizo"){
-                hechizo = new Hechizo(selectedcard.get_nombre(),selectedcard.get_costo(),selectedcard.get_id());
-            }
-            else if (type == "secreto"){
-                secreto = new Secreto(selectedcard.get_nombre(),selectedcard.get_id(),selectedcard.get_costo());
+            if (hand_count == 0){
+                JOptionPane.showMessageDialog(null, "You have no cards left in your hand",
+                                    "Warning", JOptionPane.WARNING_MESSAGE);
+            }else {
+                cardSelected = true;
+                String type = selectedcard.get_tipo();
+                System.out.println(type);
+                System.out.println(selectedcard.get_nombre());
+                if (type == "esbirro"){
+                    esbirro = new Esbirro(selectedcard.get_nombre(),selectedcard.get_ataque(),selectedcard.get_costo()); 
+                }
+                else if (type == "hechizo"){
+                    hechizo = new Hechizo(selectedcard.get_nombre(),selectedcard.get_costo(),selectedcard.get_id());
+                }
+                else if (type == "secreto"){
+                    secreto = new Secreto(selectedcard.get_nombre(),selectedcard.get_id(),selectedcard.get_costo());
+                }
             }
         }else JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
                 "Warning", JOptionPane.WARNING_MESSAGE);
-    }//GEN-LAST:event_cardSlot1ActionPerformed
+    }//GEN-LAST:event_cardSlotActionPerformed
 
-    private void cardSlot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot2ActionPerformed
+    private void LeftArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftArrowActionPerformed
         if (myTurn == true){
             cardSelected = false;
             selectedcard = selectedcard.next_card();
+            Image_mod(selectedcard.get_nombre());
         } 
-    }//GEN-LAST:event_cardSlot2ActionPerformed
+    }//GEN-LAST:event_LeftArrowActionPerformed
 
-    private void cardSlot3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlot3ActionPerformed
+    private void RightArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightArrowActionPerformed
         if (myTurn == true){
             cardSelected = false;
             selectedcard = selectedcard.previous_card();
+            Image_mod(selectedcard.get_nombre());
         } 
-    }//GEN-LAST:event_cardSlot3ActionPerformed
+    }//GEN-LAST:event_RightArrowActionPerformed
 
     
     public static void main(String args[]) {
         int deck_count = 0;
         int card_getter;
-        int hand_count = 0;
         Random rand = new Random();
         List<List<String>> list = new ArrayList<>();
         ArrayList<String> unit = new ArrayList<>();
@@ -801,11 +875,22 @@ public class Server extends javax.swing.JFrame {
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                     
                 //Checks to see if you have no cards left to draw and have no cards in your hand
-                if (Deck.ult == null && Hand.count_hand()==0){
+                if (deck_count == 0 && Hand.count_hand()==0){
                     //Código para acabar el juego
-                } else { if (Deck.ult != null)
-                    Hand.addNode(Deck.get_tipo(),Deck.get_nombre(),Deck.get_costo(),Deck.get_id(),Deck.get_ataque());
-                    Deck.next();
+                } else { if (hand_count < 10 && deck_count > 0){
+                    if (hand_count > 0){
+                        Hand.addNode(Deck.get_tipo(),Deck.get_nombre(),Deck.get_costo(),Deck.get_id(),Deck.get_ataque());
+                        Deck.next();
+                        deck_count -= 1;
+                        hand_count += 1;
+                    } else {
+                        Hand.addNode(Deck.get_tipo(),Deck.get_nombre(),Deck.get_costo(),Deck.get_id(),Deck.get_ataque());
+                        Hand.deleteNode(Hand.get_head());
+                        Deck.next();
+                        deck_count -= 1;
+                        hand_count += 1;
+                    }
+                    }
                 }
                     
                 //checks if message received is esbirro
@@ -960,7 +1045,6 @@ public class Server extends javax.swing.JFrame {
     }
     
     public static void Hand_Creation(Pila Deck){
-        int hand_count = 0;
         String tipo = Deck.get_tipo();
         String nombre = Deck.get_nombre();
         int costo = Deck.get_costo();
@@ -978,12 +1062,112 @@ public class Server extends javax.swing.JFrame {
         }
     }
     
-    
+    public void Image_mod(String nombre){
+        switch(nombre){
+            case "Barbarian":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Barbarian.jpg")));
+                break;
+            case "HogRider":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/HogRider.jpg")));
+                break;
+            case "Giant":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Giant.jpg")));
+                break;
+            case "Pekka":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Pekka.jpg")));
+                break;
+            case "IceWizard":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/IceWizard.jpg")));
+                break;
+            case "BabyDragon":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/BabyDragon.jpg")));
+                break;
+            case "Skeleton":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Skeleton.jpg")));
+                break;
+            case "Witch":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Witch.jpg")));
+                break;
+            case "Goblin":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Goblin.jpg")));
+                break;
+            case "Minion":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Minion.jpg")));
+                break;
+            case "Clone Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Clone.jpg")));
+                break;
+            case "Heal Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Heal.jpg")));
+                break;
+            case "Elixir Collector":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/ElixirCollector.jpg")));
+                break;
+            case "Log":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Log.jpg")));
+                break;
+            case "Zap Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Zap.jpg")));
+                break;
+            case "Bandit":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Bandit.jpg")));
+                break;
+            case "Supreme Power":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/PoderSupremo.jpg")));
+                break;
+            case "Freeze Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Freeze.jpg")));
+                break;
+            case "Lightning Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Lightning.jpg")));
+                break;
+            case "Earthquake Spell":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Earthquake.jpg")));
+                break;
+            case "Goblin Barrel":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/GoblinBarrel.jpg")));
+                break;
+            case "Skeleton Barrel":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/SkeletonBarrel.jpg")));
+                break;
+            case "Barbarian Barrel":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/BarbarianBarrel.jpg")));
+                break;
+            case "TeslaCoil":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/TeslaCoil.jpg")));
+                break;
+            case "Shield":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Shield.jpg")));
+                break;
+            case "Mirror":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Mirror.jpg")));
+                break;
+            case "Goblin Cage":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/GoblinCage.jpg")));
+                break;
+            case "Graveyard":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Graveyard.jpg")));
+                break;
+            case "Miner":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Miner.jpg")));
+                break;
+            case "Mega Knight":
+                cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/MegaKnight.jpg")));
+                break;
+        }
+   
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cardSlot1;
-    private javax.swing.JButton cardSlot2;
-    private javax.swing.JButton cardSlot3;
+    private javax.swing.JLabel HealthImage;
+    private javax.swing.JButton LeftArrow;
+    private javax.swing.JLabel ManaImage2;
+    private javax.swing.JLabel ManaImage3;
+    private javax.swing.JLabel ManaImage4;
+    private javax.swing.JButton RightArrow;
+    private javax.swing.JButton cardSlot;
+    private javax.swing.JLabel costoLabel1;
+    private javax.swing.JLabel costoLabel2;
     private javax.swing.JLabel enemyHealth;
     private static javax.swing.JTextField enemyHealthF;
     private static javax.swing.JTextField enemyManaF;
