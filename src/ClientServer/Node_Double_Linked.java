@@ -38,6 +38,10 @@ public class Node_Double_Linked{
         return ataque;
     }
     
+    public void set_ataque(int ataque){
+        this.ataque = ataque;
+    }
+    
     public Node_Double_Linked next_card(){
         return next;      
     }
