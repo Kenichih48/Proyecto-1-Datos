@@ -360,7 +360,7 @@ public class Client extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "Your opponent played Barbarian Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto13 = false;
-                                    }else if (Osecreto16 == true && selectedcard.get_ataque() < 200){
+                                    }else if (Osecreto16 == true && selectedcard.get_ataque() <= 200){
                                         myHealthInt -= selectedcard.get_ataque();
                                         myHealthF.setText(String.valueOf(esbirro.get_ataque()));
                                         JOptionPane.showMessageDialog(null, "Your opponent played Mirror",
@@ -889,7 +889,7 @@ public class Client extends javax.swing.JFrame {
                 //while (deck < 20) {
                   //  Deck.insert(cardList[i]);
                     //}
-
+            
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -897,6 +897,7 @@ public class Client extends javax.swing.JFrame {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }
         
        
         while (deck_count < 20){
@@ -932,6 +933,10 @@ public class Client extends javax.swing.JFrame {
             //Code that receives message/object
             String jsonInput = "";
             while(!jsonInput.equals("exit")){
+                
+                jsonInput = dinput.readUTF();
+                Gson gson3 = new Gson();
+                
                 if (myManaInt >= 600 && Osecreto18 == true){
                     myManaInt -= 200;
                     enemyManaInt += 200;
@@ -986,7 +991,7 @@ public class Client extends javax.swing.JFrame {
                 
                 //Checks to see if you have no cards left to draw and have no cards in your hand
                 if (deck_count == 0 && Hand.count_hand()==0){
-                    new Server().setVisible(false);
+                    //Server.setVisible(false);
                     JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
                     "Warning", JOptionPane.WARNING_MESSAGE);
                 } else if (hand_count < 10 && deck_count > 0){
@@ -1004,8 +1009,6 @@ public class Client extends javax.swing.JFrame {
                     }
                 }
                 
-                jsonInput = dinput.readUTF();
-                Gson gson3 = new Gson();
                 //checks if message received is mensaje
                 if (jsonInput.contains("mensaje")){
                     myTurn = true;   
@@ -1020,6 +1023,7 @@ public class Client extends javax.swing.JFrame {
                     if (Ohechizo7 == false && secreto16 == false){
                         Esbirro esbirroreceived = new Esbirro();
                         esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
+                        System.out.println(esbirroreceived);
                         myHealthInt -= esbirroreceived.get_ataque();
                         myHealthF.setText(String.valueOf(myHealthInt));
                         System.out.println(esbirroreceived.get_costo());
@@ -1289,7 +1293,7 @@ public class Client extends javax.swing.JFrame {
         }catch(Exception e){
             //Exceptions
         }
-    }
+    
     
     }
     private static void parseCardObject(JSONObject card, ArrayList unit) 

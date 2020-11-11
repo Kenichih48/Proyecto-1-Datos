@@ -350,7 +350,7 @@ public class Server extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "Your opponent played Barbarian Barrel",
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto13 = false;
-                                    }else if (Osecreto16 == true && selectedcard.get_ataque() < 200){
+                                    }else if (Osecreto16 == true && selectedcard.get_ataque() <= 200){
                                         myHealthInt -= selectedcard.get_ataque();
                                         myHealthF.setText(String.valueOf(esbirro.get_ataque()));
                                         JOptionPane.showMessageDialog(null, "Your opponent played Mirror",
@@ -777,14 +777,17 @@ public class Server extends javax.swing.JFrame {
                 String str_endedTurn = gson1.toJson(endedturn);
                 doutput.writeUTF(str_endedTurn);
                 System.out.println("El objeto enviado es: " + endedturn.getmensaje());
+                
                 myManaInt += 250;
                 if (myManaInt > 1000){
                     myManaInt = 1000;
                 }
                 myManaF.setText(String.valueOf(myManaInt));
+                
                 if (hand_count == 0){
                     Hand = new DoublyLinkedList();
                 }
+                
                 myTurn = false;
                 
                 
@@ -921,6 +924,9 @@ public class Server extends javax.swing.JFrame {
             //Code that receives message/object
             String jsonInput = "";
             while(!jsonInput.equals("exit")){
+                jsonInput = dinput.readUTF();
+                Gson gson3 = new Gson();
+                
                 if (myManaInt >= 600 && Osecreto18 == true){
                     myManaInt -= 200;
                     enemyManaInt += 200;
@@ -950,9 +956,10 @@ public class Server extends javax.swing.JFrame {
                     myHealthInt = 1000;
                     myHealthF.setText(String.valueOf(myHealthInt));
                 }else if (myHealthInt <= 0){
-                    new Server().setVisible(false);
                     JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
                     "Warning", JOptionPane.WARNING_MESSAGE);
+                    //Server.dispose();
+                    System.exit(0);
                 }else if (myManaInt > 1000){
                     myManaInt = 1000;
                     myManaF.setText(String.valueOf(myManaInt));
@@ -993,8 +1000,6 @@ public class Server extends javax.swing.JFrame {
                     }
                 }
                 
-                jsonInput = dinput.readUTF();
-                Gson gson3 = new Gson();
                 //checks if message received is mensaje
                 if (jsonInput.contains("mensaje")){
                     myTurn = true;   
@@ -1002,6 +1007,7 @@ public class Server extends javax.swing.JFrame {
                     if (enemyManaInt > 1000){
                         enemyManaInt = 1000;
                     }
+                    
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                     
                 //checks if message received is esbirro
@@ -1009,6 +1015,7 @@ public class Server extends javax.swing.JFrame {
                     if (Ohechizo7 == false && secreto16 == false){
                         Esbirro esbirroreceived = new Esbirro();
                         esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
+                        System.out.println(esbirroreceived);
                         myHealthInt -= esbirroreceived.get_ataque();
                         myHealthF.setText(String.valueOf(myHealthInt));
                         System.out.println(esbirroreceived.get_costo());
