@@ -414,11 +414,17 @@ public class Server extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "You restored 600 mana",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         myManaInt += 600;
+                                        if (myManaInt > 1000){
+                                            myManaInt = 1000;
+                                        }
                                         myManaF.setText(String.valueOf(myManaInt));
                                     }else if (id == 4 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You vanished 100 mana from your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         enemyManaInt -= 100;
+                                        if (enemyManaInt < 0){
+                                            enemyManaInt = 0;
+                                        }
                                         enemyManaF.setText(String.valueOf(enemyManaInt));
                                     }else if (id == 4 && Osecreto15 == true && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
@@ -520,11 +526,17 @@ public class Server extends javax.swing.JFrame {
                                         JOptionPane.showMessageDialog(null, "You restored 600 mana",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         myManaInt += 600;
+                                        if (myManaInt > 1000){
+                                            myManaInt = 1000;
+                                        }
                                         myManaF.setText(String.valueOf(myManaInt));
                                     }else if (id == 4 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You vanished 100 mana from your opponent",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         enemyManaInt -= 100;
+                                        if (enemyManaInt < 0){
+                                            enemyManaInt = 0;
+                                        }
                                         enemyManaF.setText(String.valueOf(enemyManaInt));
                                     }else if (id == 4 && Osecreto15 == true && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
@@ -661,7 +673,7 @@ public class Server extends javax.swing.JFrame {
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - selectedcard.get_costo();
+                                        myManaInt -= selectedcard.get_costo();
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -714,7 +726,7 @@ public class Server extends javax.swing.JFrame {
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                                         }
                                         doutput.writeUTF(str_secretPlayed);
-                                        myManaInt = myManaInt - selectedcard.get_costo();
+                                        myManaInt -= selectedcard.get_costo();
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -729,9 +741,7 @@ public class Server extends javax.swing.JFrame {
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
                                         doutput.writeUTF(str_secretPlayed);
-                                        System.out.println("my mana int: " + myManaInt);
                                         myManaInt -= selectedcard.get_costo();
-                                        System.out.println("my mana int after: " + myManaInt);
                                         myManaF.setText(String.valueOf(myManaInt));
                                         System.out.println("El secreto enviado es: " + selectedcard.get_nombre());
                                         Hand.deleteNode(selectedcard);
@@ -768,6 +778,9 @@ public class Server extends javax.swing.JFrame {
                 doutput.writeUTF(str_endedTurn);
                 System.out.println("El objeto enviado es: " + endedturn.getmensaje());
                 myManaInt += 250;
+                if (myManaInt > 1000){
+                    myManaInt = 1000;
+                }
                 myManaF.setText(String.valueOf(myManaInt));
                 if (hand_count == 0){
                     Hand = new DoublyLinkedList();
@@ -897,7 +910,6 @@ public class Server extends javax.swing.JFrame {
         Node_Double_Linked head_card = Hand.get_head();
         selectedcard = head_card;
         
-        
         try{
             //setting up the socket
             ss = new ServerSocket(port);
@@ -912,6 +924,9 @@ public class Server extends javax.swing.JFrame {
                 if (myManaInt >= 600 && Osecreto18 == true){
                     myManaInt -= 200;
                     enemyManaInt += 200;
+                    if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                    }
                     myManaF.setText(String.valueOf(myManaInt));
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                     Osecreto18 = false;
@@ -920,12 +935,16 @@ public class Server extends javax.swing.JFrame {
                 }else if (enemyManaInt >= 600 && secreto18 == true){
                     enemyManaInt -= 200;
                     myManaInt += 200;
+                    if (myManaInt > 1000){
+                        myManaInt = 1000;
+                    }
                     myManaF.setText(String.valueOf(myManaInt));
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                     secreto18 = false;
                     JOptionPane.showMessageDialog(null, "Your Graveyard secret has activated",
                     "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
+                
                 //Checks for conditions to cap the values or end the game
                 if (myHealthInt > 1000){
                     myHealthInt = 1000;
@@ -952,6 +971,7 @@ public class Server extends javax.swing.JFrame {
                     enemyManaInt = 0;
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                 }
+        
                 
                 //Checks to see if you have no cards left to draw and have no cards in your hand
                 if (deck_count == 0 && Hand.count_hand()==0){
@@ -979,6 +999,9 @@ public class Server extends javax.swing.JFrame {
                 if (jsonInput.contains("mensaje")){
                     myTurn = true;   
                     enemyManaInt += 250;
+                    if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                    }
                     enemyManaF.setText(String.valueOf(enemyManaInt));
                     
                 //checks if message received is esbirro
@@ -1033,16 +1056,25 @@ public class Server extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             enemyHealthInt += 250;
+                            if (enemyHealthInt > 1000){
+                                enemyHealthInt = 1000;
+                            }
                             enemyHealthF.setText(String.valueOf(enemyHealthInt));
                         }else if (id == 3){
                             JOptionPane.showMessageDialog(null, "Your opponent restored 600 mana",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             enemyManaInt += 600;
+                            if (enemyManaInt > 1000){
+                                enemyManaInt = 1000;
+                            }
                             enemyManaF.setText(String.valueOf(enemyManaInt));
                         }else if (id == 4){
                             JOptionPane.showMessageDialog(null, "Your opponent vanished 100 mana from you",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myManaInt -= 100;
+                            if (myManaInt < 0){
+                                myManaInt = 0;
+                            }
                             myManaF.setText(String.valueOf(myManaInt));
                         }else if (id == 5){
                             JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage to you",
@@ -1081,14 +1113,25 @@ public class Server extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             enemyHealthInt += 250;
+                            if (enemyHealthInt > 1000){
+                                enemyHealthInt = 1000;
+                            }
                             enemyHealthF.setText(String.valueOf(enemyHealthInt));
                         }else if (id == 3){
                             JOptionPane.showMessageDialog(null, "Your opponent restored 600 mana",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
+                            enemyManaInt += 600;
+                            if (enemyManaInt > 1000){
+                                enemyManaInt = 1000;
+                            }
+                            enemyManaF.setText(String.valueOf(enemyManaInt));
                         }else if (id == 4){
                             JOptionPane.showMessageDialog(null, "Your opponent vanished 100 mana from you",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myManaInt -= 100;
+                            if (myManaInt < 0){
+                                myManaInt = 0;
+                            }
                             myManaF.setText(String.valueOf(myManaInt));
                         }else if (id == 5){
                             JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage to you",
