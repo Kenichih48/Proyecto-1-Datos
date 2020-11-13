@@ -380,11 +380,10 @@ public class Client extends javax.swing.JFrame {
                 int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", 
                 "Select an option", JOptionPane.YES_NO_OPTION);
                 if (confirm == 0){
-                        cardType = selectedcard.get_tipo();
-                        //Checks if played card is esbirro                        
+                        cardType = selectedcard.get_tipo();     
+                        //Checks if card played is esbirro type
                         if ("esbirro".equals(cardType)){
                             try {
-                                //Checks if there's enough mana and hechizo7 not active
                                 if (myManaInt - selectedcard.get_costo() >= 0 && hechizo7 == false){
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
@@ -412,7 +411,7 @@ public class Client extends javax.swing.JFrame {
                                             "Information", JOptionPane.INFORMATION_MESSAGE);
                                         doutput.writeUTF(String.valueOf(esbirro.get_ataque()));
                                     }
-                                    Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                    Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                     Node_Double_Linked_Historial head_text = Historial.get_head();
                                     selectedtext = head_text;
                                     historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -433,6 +432,18 @@ public class Client extends javax.swing.JFrame {
                                         cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Question.jpg")));
                                     }
                                     cardSelected = false;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
+                                    
                                 //Checks if hechizo7 is active  
                                 }else if (hechizo7 == true){
                                     Gson gson1 = new Gson();
@@ -465,7 +476,7 @@ public class Client extends javax.swing.JFrame {
                                         contadorTurno = 0;
                                         hechizo7 = false;
                                     }
-                                    Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                    Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                     Node_Double_Linked_Historial head_text = Historial.get_head();
                                     selectedtext = head_text;
                                     historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -484,7 +495,17 @@ public class Client extends javax.swing.JFrame {
                                         cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Question.jpg")));
                                     }
                                     contadorTurno += 1;
-                                    
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
                                     cardSelected = false;
                                     
                                 }else{
@@ -562,17 +583,14 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto15 = false;
                                     }else if (id == 6 && Osecreto20 == false){
-                                        
-                                        
-                                            if (hand_count < 10){
-                                                
-                                                JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
-                                                "Information", JOptionPane.INFORMATION_MESSAGE);
-                                                }else{
-                                                 JOptionPane.showMessageDialog(null, "Your hand is full",
-                                                "Information", JOptionPane.INFORMATION_MESSAGE);
-                                            }
-                                                                              
+                                        if (hand_count < 10){
+
+                                            JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
+                                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            }else{
+                                             JOptionPane.showMessageDialog(null, "Your hand is full",
+                                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        }                                    
                                     }else if (id == 6 && Osecreto20 == true){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -601,8 +619,15 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto15 = false;
                                     }else if (id == 10 && Osecreto15 == false && Osecreto20 == false){
-                                        JOptionPane.showMessageDialog(null, "You destroyed one of your opponent's cards",
+                                        JOptionPane.showMessageDialog(null, "You used an Earthquake spell",                                        
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        enemyManaInt -= 50;
+                                        if (enemyManaInt < 0){
+                                            enemyManaInt = 0;
+                                        }
+                                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                                        enemyHealthInt -= 50;
+                                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
                                     }else if (id == 10 && Osecreto15 == true && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -612,7 +637,7 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);    
                                         Osecreto20 = false;
                                     }
-                                    Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                    Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                     Node_Double_Linked_Historial head_text = Historial.get_head();
                                     selectedtext = head_text;
                                     historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -625,6 +650,17 @@ public class Client extends javax.swing.JFrame {
                                         Image_mod(selectedcard.get_nombre());
                                     } else{
                                         cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Question.jpg")));
+                                    }
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
                                     }
                                     cardSelected = false;
                                 //Checks if hechizo7 is active    
@@ -692,22 +728,20 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto15 = false;
                                     }else if (id == 6 && Osecreto20 == false){
-                                        
-                                            if (hand_count < 10){
-                                                Client.Hand.deleteNode(Client.Hand.head);
-                                                Hand.addNode(Client.Hand.head.tipo,Client.Hand.head.nombre,
-                                                        Client.Hand.head.costo,
-                                                        Client.Hand.head.id,Client.Hand.head.ataque);
-                                                hand_count += 1;
-                                                System.out.println("image mod should be happening");
-                                                Image_mod(Client.Hand.head.get_nombre());
-                                                JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
-                                                "Information", JOptionPane.INFORMATION_MESSAGE);
-                                            }else{
-                                                JOptionPane.showMessageDialog(null, "Your hand is full",
-                                                "Information", JOptionPane.INFORMATION_MESSAGE);
-                                            }
-                                           
+                                        if (hand_count < 10){
+                                            Client.Hand.deleteNode(Client.Hand.head);
+                                            Hand.addNode(Client.Hand.head.tipo,Client.Hand.head.nombre,
+                                                    Client.Hand.head.costo,
+                                                    Client.Hand.head.id,Client.Hand.head.ataque);
+                                            hand_count += 1;
+                                            System.out.println("image mod should be happening");
+                                            Image_mod(Client.Hand.head.get_nombre());
+                                            JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
+                                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        }else{
+                                            JOptionPane.showMessageDialog(null, "Your hand is full",
+                                            "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        } 
                                     }else if (id == 6 && Osecreto20 == true){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -736,8 +770,15 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto15 = false;
                                     }else if (id == 10 && Osecreto15 == false && Osecreto20 == false){
-                                        JOptionPane.showMessageDialog(null, "You destroyed one of your opponent's cards",
+                                        JOptionPane.showMessageDialog(null, "You used an Earthquake Spell",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        enemyManaInt -= 50;
+                                        if (enemyManaInt < 0){
+                                            enemyManaInt = 0;
+                                        }
+                                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                                        enemyHealthInt -= 50;
+                                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
                                     }else if (id == 10 && Osecreto15 == true && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -747,7 +788,7 @@ public class Client extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);    
                                         Osecreto20 = false;
                                     }
-                                    Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                    Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                     Node_Double_Linked_Historial head_text = Historial.get_head();
                                     selectedtext = head_text;
                                     historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -761,6 +802,17 @@ public class Client extends javax.swing.JFrame {
                                         cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Question.jpg")));
                                     }
                                     cardSelected = false;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
                                     contadorTurno += 1;
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Not enough mana",
@@ -790,9 +842,11 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 14){
                                             JOptionPane.showMessageDialog(null, "You have played Tesla Coil secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto14 = true;
                                         }else if (id == 15){
                                             JOptionPane.showMessageDialog(null, "You have played Shield secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto15 = true;
                                         }else if (id == 16){
                                             JOptionPane.showMessageDialog(null, "You have played Mirror secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -810,9 +864,10 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 20){
                                             JOptionPane.showMessageDialog(null, "You have played Mega Knight secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto20 = true;
                                         }
                                         doutput.writeUTF(str_secretPlayed);
-                                        Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                        Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                         Node_Double_Linked_Historial head_text = Historial.get_head();
                                         selectedtext = head_text;
                                         historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -835,7 +890,7 @@ public class Client extends javax.swing.JFrame {
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
-                                        Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                        Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                         Node_Double_Linked_Historial head_text = Historial.get_head();
                                         selectedtext = head_text;
                                         historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -854,6 +909,10 @@ public class Client extends javax.swing.JFrame {
                                         }
                                         cardSelected = false;
                                         }
+                                    if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
                                     
                                 //Checks if hechizo7 is active    
                                 }else if (hechizo7 == true){
@@ -877,9 +936,11 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 14){
                                             JOptionPane.showMessageDialog(null, "You have played Tesla Coil secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto14 = true;
                                         }else if (id == 15){
                                             JOptionPane.showMessageDialog(null, "You have played Shield secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto15 = true;
                                         }else if (id == 16){
                                             JOptionPane.showMessageDialog(null, "You have played Mirror secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -896,9 +957,10 @@ public class Client extends javax.swing.JFrame {
                                         }else if (id == 20){
                                             JOptionPane.showMessageDialog(null, "You have played Mega Knight secret",
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
+                                            secreto20 = true;
                                         }
                                         doutput.writeUTF(str_secretPlayed);
-                                        Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                        Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                         Node_Double_Linked_Historial head_text = Historial.get_head();
                                         selectedtext = head_text;
                                         historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -921,7 +983,7 @@ public class Client extends javax.swing.JFrame {
                                                 "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto19 = false;
                                         str_secretPlayed = "";
-                                        Historial.addNode(selectedcard.get_nombre(),"Client Player",game_turn);
+                                        Historial.addNode(selectedcard.get_nombre(),"Server Player",game_turn);
                                         Node_Double_Linked_Historial head_text = Historial.get_head();
                                         selectedtext = head_text;
                                         historial_gui.setText("Server Turn " + selectedtext.get_turno_jugado() + ": " + selectedtext.get_jugador() + " played a " + selectedtext.get_nombre_carta());                          
@@ -939,6 +1001,10 @@ public class Client extends javax.swing.JFrame {
                                             cardSlot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imágenes/Question.jpg")));
                                         }
                                         cardSelected = false;
+                                    }
+                                    if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
                                     }
                                     contadorTurno += 1;
                                 }else{
@@ -1151,40 +1217,11 @@ public class Client extends javax.swing.JFrame {
                     "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
-                //Checks for conditions to cap the values or end the game
-                if (myHealthInt > 1000){
-                    myHealthInt = 1000;
-                    myHealthF.setText(String.valueOf(myHealthInt));
-                }else if (myHealthInt <= 0){
-                    JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
-                    "Warning", JOptionPane.WARNING_MESSAGE);
-                    //Server.dispose();
-                    System.exit(0);
-                }else if (myManaInt > 1000){
-                    myManaInt = 1000;
-                    myManaF.setText(String.valueOf(myManaInt));
-                }else if (myManaInt <= 0){
-                    myManaInt = 0;
-                }else if (enemyHealthInt > 1000){
-                    enemyHealthInt = 1000;
-                    enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                }else if (enemyHealthInt <= 0){
-                    new Server().setVisible(false);
-                    JOptionPane.showMessageDialog(null, "You won the game, thanks for playing",
-                    "Warning", JOptionPane.WARNING_MESSAGE);
-                }else if (enemyManaInt > 1000){
-                    enemyManaInt = 1000;
-                }else if (enemyManaInt <= 0){
-                    enemyManaInt = 0;
-                    enemyManaF.setText(String.valueOf(enemyManaInt));
-                }
-        
-                
                 //Checks to see if you have no cards left to draw and have no cards in your hand
                 if (deck_count == 0 && Hand.count_hand()==0){
-                    new Server().setVisible(false);
                     JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
                     "Warning", JOptionPane.WARNING_MESSAGE);
+                    System.exit(0);
                 }  
               
                 //checks if message received is mensaje
@@ -1217,7 +1254,8 @@ public class Client extends javax.swing.JFrame {
                         enemyManaInt -= esbirroreceived.get_costo();
                         enemyManaF.setText(String.valueOf(enemyManaInt));
                         System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
-                        Historial.addNode(esbirroreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(esbirroreceived.get_nombre(),"Client Player",game_turn);
+                        
                     }else if (Ohechizo7 == true && secreto16 == false){
                         Esbirro esbirroreceived = new Esbirro();
                         esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
@@ -1225,7 +1263,7 @@ public class Client extends javax.swing.JFrame {
                         myHealthF.setText(String.valueOf(myHealthInt));
                         System.out.println(esbirroreceived.get_costo());
                         System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
-                        Historial.addNode(esbirroreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(esbirroreceived.get_nombre(),"Client Player",game_turn);
                         contadorTurnoEnemy += 1;
                         if (contadorTurnoEnemy >= 2){
                             contadorTurnoEnemy = 0;
@@ -1242,8 +1280,20 @@ public class Client extends javax.swing.JFrame {
                         enemyManaInt -= esbirroreceived.get_costo();
                         enemyManaF.setText(String.valueOf(enemyManaInt));
                         System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
-                        Historial.addNode(esbirroreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(esbirroreceived.get_nombre(),"Client Player",game_turn);
                         secreto16 = false;
+                    }
+                    
+                    if (myHealthInt <= 0){
+                        JOptionPane.showMessageDialog(null, "You have lost the game",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
+                        System.exit(0);
+                    }else if (enemyHealthInt > 1000){
+                        enemyHealthInt = 1000;
+                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                    }else if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
                     }
                     
                     
@@ -1263,9 +1313,9 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             secreto20 = false;
                         }else if (id == 2 && secreto15 == false){
-                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                            JOptionPane.showMessageDialog(null, "Your opponent restored" + String.valueOf(hechizoreceived.get_heal()) + "health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                            enemyHealthInt += 250;
+                            enemyHealthInt += hechizoreceived.get_heal();
                             if (enemyHealthInt > 1000){
                                 enemyHealthInt = 1000;
                             }
@@ -1303,6 +1353,11 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myHealthInt -= 50;
                             myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 5 && secreto14 == true && secreto15 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Tesla Coil",
                         "Information", JOptionPane.INFORMATION_MESSAGE); 
@@ -1327,6 +1382,11 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myHealthInt -= 100;
                             myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 9 && secreto14 == true && secreto15 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Tesla Coil",
                         "Information", JOptionPane.INFORMATION_MESSAGE); 
@@ -1338,13 +1398,18 @@ public class Client extends javax.swing.JFrame {
                         }else if (id == 10 && secreto15 == false && secreto20 == false){
                             JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage and destroyed 50 mana",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                                        myManaInt -= 50;
-                                        if (myManaInt < 0){
-                                            myManaInt = 0;
-                                        }
-                                        myManaF.setText(String.valueOf(myManaInt));
-                                        myHealthInt -= 50;
-                                        myHealthF.setText(String.valueOf(myHealthInt));
+                            myManaInt -= 50;
+                            if (myManaInt < 0){
+                                myManaInt = 0;
+                            }
+                            myManaF.setText(String.valueOf(myManaInt));
+                            myHealthInt -= 50;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 10 && secreto15 == true && secreto20 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Shield",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -1356,7 +1421,7 @@ public class Client extends javax.swing.JFrame {
                             secreto20 = false;
                         }    
                         System.out.println("El hechizo recibido es: " + hechizoreceived.get_nombre());
-                        Historial.addNode(hechizoreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(hechizoreceived.get_nombre(),"Client Player",game_turn);
                         
                     }else if (Ohechizo7 == true){
                         Hechizo hechizoreceived = new Hechizo();
@@ -1370,9 +1435,9 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             secreto20 = false;
                         }else if (id == 2 && secreto15 == false){
-                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                            JOptionPane.showMessageDialog(null, "Your opponent restored" + String.valueOf(hechizoreceived.get_heal()) + "health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                            enemyHealthInt += 250;
+                            enemyHealthInt += hechizoreceived.get_heal();
                             if (enemyHealthInt > 1000){
                                 enemyHealthInt = 1000;
                             }
@@ -1410,6 +1475,11 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myHealthInt -= 50;
                             myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 5 && secreto14 == true && secreto15 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Tesla Coil",
                         "Information", JOptionPane.INFORMATION_MESSAGE); 
@@ -1434,6 +1504,11 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                             myHealthInt -= 100;
                             myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 9 && secreto14 == true && secreto15 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Tesla Coil",
                         "Information", JOptionPane.INFORMATION_MESSAGE); 
@@ -1445,13 +1520,18 @@ public class Client extends javax.swing.JFrame {
                         }else if (id == 10 && secreto15 == false && secreto20 == false){
                             JOptionPane.showMessageDialog(null, "Your opponent dealt 50 damage and destroyed 50 mana",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                                        myManaInt -= 50;
-                                        if (myManaInt < 0){
-                                            myManaInt = 0;
-                                        }
-                                        myManaF.setText(String.valueOf(myManaInt));
-                                        myHealthInt -= 50;
-                                        myHealthF.setText(String.valueOf(myHealthInt));
+                            myManaInt -= 50;
+                            if (myManaInt < 0){
+                                myManaInt = 0;
+                            }
+                            myManaF.setText(String.valueOf(myManaInt));
+                            myHealthInt -= 50;
+                            myHealthF.setText(String.valueOf(myHealthInt));
+                            if (myHealthInt <= 0){
+                                JOptionPane.showMessageDialog(null, "You have lost the game",
+                                "Warning", JOptionPane.WARNING_MESSAGE);
+                                System.exit(0);
+                            }
                         }else if (id == 10 && secreto15 == true && secreto20 == false){
                             JOptionPane.showMessageDialog(null, "You were protected by the Shield",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -1467,7 +1547,7 @@ public class Client extends javax.swing.JFrame {
                             contadorTurnoEnemy = 0;
                             Ohechizo7 = false;
                         }
-                        Historial.addNode(hechizoreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(hechizoreceived.get_nombre(),"Client Player",game_turn);
                     }
                 //Checks if message received is secreto    
                 }else if (jsonInput.contains("secreto")){
@@ -1519,7 +1599,7 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                         }
                         System.out.println("El secreto recibido es: " + secretoreceived.get_nombre());
-                        Historial.addNode(secretoreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(secretoreceived.get_nombre(),"Client Player",game_turn);
                     }else if (Ohechizo7 == true){
                     Secreto secretoreceived = new Secreto();
                         secretoreceived = gson3.fromJson(jsonInput, secretoreceived.getClass());
@@ -1566,19 +1646,24 @@ public class Client extends javax.swing.JFrame {
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                         }
                         System.out.println("El secreto recibido es: " + secretoreceived.get_nombre());
-                        Historial.addNode(secretoreceived.get_nombre(),"Server Player",game_turn);
+                        Historial.addNode(secretoreceived.get_nombre(),"Client Player",game_turn);
                         contadorTurnoEnemy += 1;
                         if (contadorTurnoEnemy >= 2){
                             contadorTurnoEnemy = 0;
                             Ohechizo7 = false;
                         }
-                }
+                        
+                    }
+                    if (enemyHealthInt > 1000){
+                        enemyHealthInt = 1000;
+                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                    }else if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                    }
                 }
                         
             }
-          
-            
-            
         }catch(Exception e){
             //Exceptions
         }
