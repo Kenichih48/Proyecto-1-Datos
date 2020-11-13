@@ -1,6 +1,7 @@
 package ClientServer;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Hechizo implements Serializable{
     String tipo;
@@ -8,6 +9,8 @@ public class Hechizo implements Serializable{
     int costo;
     int id;
     int ataque;
+    int heal;
+    Random rand = new Random();
     
 public Hechizo(){
         super();
@@ -19,7 +22,7 @@ public Hechizo(){
         this.nombre = nombre;
         this.costo = costo;
         this.id = id;
-        this.ataque = ataque;
+        this.ataque = rand.nextInt(300) + 100;
     }
     
     public int get_costo(){
@@ -32,6 +35,10 @@ public Hechizo(){
     
     public String get_tipo(){
         return tipo;
+    }
+    
+    public int get_heal(){
+        return ataque;
     }
     
     public int get_id(){

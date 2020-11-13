@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.PrintWriter;
  
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -44,14 +46,16 @@ public class Server extends javax.swing.JFrame {
     static boolean secreto18 = false;
     static boolean Osecreto19 = false;
     static boolean Osecreto20 = false;
+    static boolean endGame = false;
     static int enemyHealthInt = 1000;
     static int enemyManaInt = 200;
-    static int myHealthInt = 1000;
+    static int myHealthInt = 100;
     static int myManaInt = 2000;
     static int contadorTurno = 0;
     static int hand_count = 0;
     static int deck_count = 16;
     static int contadorTurnoEnemy = 0;
+    static int turno = 0;
     static String cardType;
     static Esbirro esbirro = new Esbirro();
     static Hechizo hechizo = new Hechizo();
@@ -65,8 +69,7 @@ public class Server extends javax.swing.JFrame {
     public Server() {
         initComponents();
     }
-
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -223,52 +226,51 @@ public class Server extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(portLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyHealth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(enemyManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(myHealth)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HealthImage)
-                        .addGap(18, 18, 18)
-                        .addComponent(myMana)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ManaImage3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addComponent(instructionLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cardSlot)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
-                                .addComponent(RightArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(LeftArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(costoLabel2)
-                            .addComponent(ManaImage4)
-                            .addComponent(costoLabel1)
-                            .addComponent(ManaImage2))))
+                .addComponent(portLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enemyHealth)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enemyHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enemyManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(myHealth)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myHealthF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(HealthImage)
+                .addGap(18, 18, 18)
+                .addComponent(myMana)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myManaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ManaImage3)
                 .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(playCard, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passTurn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(instructionLabel)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cardSlot)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(RightArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(LeftArrow, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(costoLabel2)
+                    .addComponent(ManaImage4)
+                    .addComponent(costoLabel1)
+                    .addComponent(ManaImage2))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         Image_mod(selectedcard.get_nombre());
@@ -329,6 +331,18 @@ public class Server extends javax.swing.JFrame {
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     cardSelected = false;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
+                                    
                                 //Checks if hechizo7 is active  
                                 }else if (hechizo7 == true){
                                     Gson gson1 = new Gson();
@@ -372,6 +386,17 @@ public class Server extends javax.swing.JFrame {
                                     selectedcard = head_card;
                                     contadorTurno += 1;
                                     cardSelected = false;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
                                     
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Not enough mana",
@@ -402,10 +427,10 @@ public class Server extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto20 = false;
                                     }else if (id == 2 && Osecreto15 == false){
-                                        JOptionPane.showMessageDialog(null, "You restored 250 health",
-                                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                                        myHealthInt += 250;
+                                        myHealthInt += hechizo.get_heal();
                                         myHealthF.setText(String.valueOf(myHealthInt));
+                                        JOptionPane.showMessageDialog(null, "You restored" + String.valueOf(hechizo.get_heal()) 
+                                                + "health", "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }else if (id == 2 && Osecreto15 == true){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -495,6 +520,18 @@ public class Server extends javax.swing.JFrame {
                                     Node_Double_Linked head_card = Hand.get_head();
                                     selectedcard = head_card;
                                     cardSelected = false;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
+                                    
                                 //Checks if hechizo7 is active    
                                 }else if (hechizo7 == true){
                                     if (contadorTurno >= 2){
@@ -514,10 +551,10 @@ public class Server extends javax.swing.JFrame {
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
                                         Osecreto20 = false;
                                     }else if (id == 2 && Osecreto15 == false){
-                                        JOptionPane.showMessageDialog(null, "You restored 250 health",
-                                    "Information", JOptionPane.INFORMATION_MESSAGE);
-                                        myHealthInt += 250;
+                                        myHealthInt += hechizo.get_heal();
                                         myHealthF.setText(String.valueOf(myHealthInt));
+                                        JOptionPane.showMessageDialog(null, "You restored" + String.valueOf(hechizo.get_heal()) 
+                                            + "health", "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }else if (id == 2 && Osecreto15 == true){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Shield secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -532,7 +569,7 @@ public class Server extends javax.swing.JFrame {
                                         myManaF.setText(String.valueOf(myManaInt));
                                     }else if (id == 4 && Osecreto15 == false && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You vanished 100 mana from your opponent",
-                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        "Information", JOptionPane.INFORMATION_MESSAGE);
                                         enemyManaInt -= 100;
                                         if (enemyManaInt < 0){
                                             enemyManaInt = 0;
@@ -561,7 +598,7 @@ public class Server extends javax.swing.JFrame {
                                         Osecreto15 = false;
                                     }else if (id == 6 && Osecreto20 == false){
                                         JOptionPane.showMessageDialog(null, "You stole a card from your opponent",
-                                    "Information", JOptionPane.INFORMATION_MESSAGE);
+                                        "Information", JOptionPane.INFORMATION_MESSAGE);
                                     }else if (id == 6 && Osecreto20 == true){
                                         JOptionPane.showMessageDialog(null, "Your opponent used Mega Knight secret",
                                     "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -608,6 +645,18 @@ public class Server extends javax.swing.JFrame {
                                     selectedcard = head_card;
                                     cardSelected = false;
                                     contadorTurno += 1;
+                                    if (enemyHealthInt <= 0){
+                                        JOptionPane.showMessageDialog(null, "You have won the game",
+                                        "Warning", JOptionPane.WARNING_MESSAGE);
+                                        System.exit(0);
+                                    }else if (myHealthInt > 1000){
+                                        myHealthInt = 1000;
+                                        myHealthF.setText(String.valueOf(myHealthInt));
+                                    }else if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
+                                    
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Not enough mana",
                                     "Warning", JOptionPane.WARNING_MESSAGE);
@@ -682,7 +731,10 @@ public class Server extends javax.swing.JFrame {
                                         selectedcard = head_card;
                                         cardSelected = false;
                                     }
-                                    
+                                    if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
                                 //Checks if hechizo7 is active    
                                 }else if (hechizo7 == true){
                                     if (contadorTurno >= 2){
@@ -751,10 +803,16 @@ public class Server extends javax.swing.JFrame {
                                         cardSelected = false;
                                     }
                                     contadorTurno += 1;
+                                    if (myManaInt > 1000){
+                                        myManaInt = 1000;
+                                        myManaF.setText(String.valueOf(myManaInt));
+                                    }
+                                    
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Not enough mana",
                                     "Warning", JOptionPane.WARNING_MESSAGE);
                                 }
+                                
                             } catch(Exception e){
                              //Exceptions
                             }
@@ -824,10 +882,10 @@ public class Server extends javax.swing.JFrame {
             else if ("secreto".equals(type)){
                 secreto = new Secreto(selectedcard.get_tipo(),selectedcard.get_nombre(),selectedcard.get_costo(),
                         selectedcard.get_id(),selectedcard.get_ataque());
-            }else {JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
-                "Warning", JOptionPane.WARNING_MESSAGE);}
             }
-        }
+            }
+        }else {JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
+                "Warning", JOptionPane.WARNING_MESSAGE);}
         
     }//GEN-LAST:event_cardSlotActionPerformed
 
@@ -836,7 +894,10 @@ public class Server extends javax.swing.JFrame {
             cardSelected = false;
             selectedcard = selectedcard.next_card();
             Image_mod(selectedcard.get_nombre());
-        } 
+        }else {
+            JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
+                "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_LeftArrowActionPerformed
 
     private void RightArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightArrowActionPerformed
@@ -844,6 +905,9 @@ public class Server extends javax.swing.JFrame {
             cardSelected = false;
             selectedcard = selectedcard.previous_card();
             Image_mod(selectedcard.get_nombre());
+        }else {
+            JOptionPane.showMessageDialog(null, "Please wait until it's your turn",
+                "Warning", JOptionPane.WARNING_MESSAGE);
         } 
     }//GEN-LAST:event_RightArrowActionPerformed
 
@@ -897,10 +961,10 @@ public class Server extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Server().setVisible(true);
+                Server server = new Server();
+                server.setVisible(true);
             }
         });
-        
         
         while (deck_count < 20){
             card_getter = rand.nextInt(30);
@@ -908,6 +972,8 @@ public class Server extends javax.swing.JFrame {
                     Integer.parseInt(list.get(card_getter).get(2)),Integer.parseInt(list.get(card_getter).get(3)),Integer.parseInt(list.get(card_getter).get(4)));
             deck_count += 1;
         }
+        Deck.insert(list.get(11).get(0),list.get(11).get(1),Integer.parseInt(list.get(11).get(2)),
+                Integer.parseInt(list.get(11).get(3)), Integer.parseInt(list.get(11).get(4)));
         
         Hand_Creation(Deck);
         Node_Double_Linked head_card = Hand.get_head();
@@ -951,40 +1017,11 @@ public class Server extends javax.swing.JFrame {
                     "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
                 
-                //Checks for conditions to cap the values or end the game
-                if (myHealthInt > 1000){
-                    myHealthInt = 1000;
-                    myHealthF.setText(String.valueOf(myHealthInt));
-                }else if (myHealthInt <= 0){
-                    JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
-                    "Warning", JOptionPane.WARNING_MESSAGE);
-                    //Server.dispose();
-                    System.exit(0);
-                }else if (myManaInt > 1000){
-                    myManaInt = 1000;
-                    myManaF.setText(String.valueOf(myManaInt));
-                }else if (myManaInt <= 0){
-                    myManaInt = 0;
-                }else if (enemyHealthInt > 1000){
-                    enemyHealthInt = 1000;
-                    enemyHealthF.setText(String.valueOf(enemyHealthInt));
-                }else if (enemyHealthInt <= 0){
-                    new Server().setVisible(false);
-                    JOptionPane.showMessageDialog(null, "You won the game, thanks for playing",
-                    "Warning", JOptionPane.WARNING_MESSAGE);
-                }else if (enemyManaInt > 1000){
-                    enemyManaInt = 1000;
-                }else if (enemyManaInt <= 0){
-                    enemyManaInt = 0;
-                    enemyManaF.setText(String.valueOf(enemyManaInt));
-                }
-        
-                
                 //Checks to see if you have no cards left to draw and have no cards in your hand
                 if (deck_count == 0 && Hand.count_hand()==0){
-                    new Server().setVisible(false);
                     JOptionPane.showMessageDialog(null, "You lost the game, thanks for playing",
                     "Warning", JOptionPane.WARNING_MESSAGE);
+                    System.exit(0);
                 } else if (hand_count < 10 && deck_count > 0){
                     if (hand_count > 0){
                         Hand.addNode(Deck.get_tipo(),Deck.get_nombre(),Deck.get_costo(),Deck.get_id(),Deck.get_ataque());
@@ -1022,6 +1059,17 @@ public class Server extends javax.swing.JFrame {
                         enemyManaInt -= esbirroreceived.get_costo();
                         enemyManaF.setText(String.valueOf(enemyManaInt));
                         System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
+                        if (myHealthInt <= 0){
+                            JOptionPane.showMessageDialog(null, "You have lost the game",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
+                            System.exit(0);
+                        }else if (enemyHealthInt > 1000){
+                            enemyHealthInt = 1000;
+                            enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                        }else if (enemyManaInt > 1000){
+                            enemyManaInt = 1000;
+                            enemyManaF.setText(String.valueOf(enemyManaInt));
+                        }
                     }else if (Ohechizo7 == true && secreto16 == false){
                         Esbirro esbirroreceived = new Esbirro();
                         esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
@@ -1033,7 +1081,18 @@ public class Server extends javax.swing.JFrame {
                         if (contadorTurnoEnemy >= 2){
                             contadorTurnoEnemy = 0;
                             Ohechizo7 = false;
+                        }else if (myHealthInt <= 0){
+                            JOptionPane.showMessageDialog(null, "You have lost the game",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
+                            System.exit(0);
+                        }else if (enemyHealthInt > 1000){
+                            enemyHealthInt = 1000;
+                            enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                        }else if (enemyManaInt > 1000){
+                            enemyManaInt = 1000;
+                            enemyManaF.setText(String.valueOf(enemyManaInt));
                         }
+                        
                     }else if (Ohechizo7 == false && secreto16 == true){
                         Esbirro esbirroreceived = new Esbirro();
                         esbirroreceived = gson3.fromJson(jsonInput, esbirroreceived.getClass());
@@ -1046,6 +1105,17 @@ public class Server extends javax.swing.JFrame {
                         enemyManaF.setText(String.valueOf(enemyManaInt));
                         System.out.println("El esbirro recibido es: " + esbirroreceived.get_nombre());
                         secreto16 = false;
+                        if (myHealthInt <= 0){
+                            JOptionPane.showMessageDialog(null, "You have lost the game",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
+                            System.exit(0);
+                        }else if (enemyHealthInt > 1000){
+                            enemyHealthInt = 1000;
+                            enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                        }else if (enemyManaInt > 1000){
+                            enemyManaInt = 1000;
+                            enemyManaF.setText(String.valueOf(enemyManaInt));
+                        }
                     }
                     
                 //checks if message received is hechizo    
@@ -1060,9 +1130,9 @@ public class Server extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Your opponent's next attack yields double the damage",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                         }else if (id == 2){
-                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                            JOptionPane.showMessageDialog(null, "Your opponent restored" + String.valueOf(hechizoreceived.get_heal()) + "health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                            enemyHealthInt += 250;
+                            enemyHealthInt += hechizoreceived.get_heal();
                             if (enemyHealthInt > 1000){
                                 enemyHealthInt = 1000;
                             }
@@ -1117,9 +1187,9 @@ public class Server extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Your opponent's next attack yields double the damage",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
                         }else if (id == 2){
-                            JOptionPane.showMessageDialog(null, "Your opponent restored 250 health",
+                            JOptionPane.showMessageDialog(null, "Your opponent restored" + String.valueOf(hechizoreceived.get_heal()) + "health",
                         "Information", JOptionPane.INFORMATION_MESSAGE);
-                            enemyHealthInt += 250;
+                            enemyHealthInt += hechizoreceived.get_heal();
                             if (enemyHealthInt > 1000){
                                 enemyHealthInt = 1000;
                             }
@@ -1171,7 +1241,19 @@ public class Server extends javax.swing.JFrame {
                             contadorTurnoEnemy = 0;
                             Ohechizo7 = false;
                         }
+                        
+                    }else if (myHealthInt <= 0){
+                        JOptionPane.showMessageDialog(null, "You have lost the game",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
+                        System.exit(0);
+                    }else if (enemyHealthInt > 1000){
+                        enemyHealthInt = 1000;
+                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                    }else if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
                     }
+                    
                 //Checks if message received is secreto    
                 }else if (jsonInput.contains("secreto")){
                     if (Ohechizo7 == false){
@@ -1275,12 +1357,18 @@ public class Server extends javax.swing.JFrame {
                             contadorTurnoEnemy = 0;
                             Ohechizo7 = false;
                         }
-                }
+                    }
+                    
+                    if (enemyHealthInt > 1000){
+                        enemyHealthInt = 1000;
+                        enemyHealthF.setText(String.valueOf(enemyHealthInt));
+                    }else if (enemyManaInt > 1000){
+                        enemyManaInt = 1000;
+                        enemyManaF.setText(String.valueOf(enemyManaInt));
+                    }
                 }
                         
             }
-          
-            
             
         }catch(Exception e){
             //Exceptions
@@ -1327,6 +1415,7 @@ public class Server extends javax.swing.JFrame {
         int costo = Deck.get_costo();
         int id = Deck.get_id();
         int ataque = Deck.get_ataque();
+        
         while (hand_count < 4){
             Hand.addNode(tipo,nombre,costo,id,ataque);
             Deck.next();
