@@ -40,16 +40,24 @@ public class DoublyLinkedList {
             return;
         }
         
-        if (head==del){
-            head = del.next;
-        }
+        if (head.prev == head && head.next == head){
+            head.prev = null;
+            head.next = null;
+            head = null;
+            
+        } else{
         
-        if (del.next != null){
-            del.next.prev = del.prev;
-        }
-        
-        if (del.prev != null){
-            del.prev.next = del.next;
+            if (head==del){
+                head = del.next;
+            }
+
+            if (del.next != null){
+                del.next.prev = del.prev;
+            }
+
+            if (del.prev != null){
+                del.prev.next = del.next;
+            }
         }
         
     }
@@ -86,44 +94,9 @@ public class DoublyLinkedList {
         printNodes();
     }*/
     
-    public static String get_head_tipo(){
-        Node_Double_Linked temp2 = head;
-        return temp2.tipo;
-    }
-    
-    public static String get_head_nombre(){
-        Node_Double_Linked temp2 = head;
-        return temp2.nombre;
-    }
-    
-    public static int get_head_costo(){
-        Node_Double_Linked temp2 = head;
-        return temp2.costo;
-    }
-    
-    public static int get_head_id(){
-        Node_Double_Linked temp2 = head;
-        return temp2.id;
-    }
-    
-    public static int get_head_ataque(){
-        Node_Double_Linked temp2 = head;
-        return temp2.ataque;
-    }
-    
     public static Node_Double_Linked get_head(){
-        Node_Double_Linked temp2 = head;
-        return temp2;
+        return head;
     }
-    
-    public static Node_Double_Linked get_next_card(Node_Double_Linked tmp){
-        return tmp.next;
-    }
-    
-    public static Node_Double_Linked get_previous_card(Node_Double_Linked tmp){
-        return tmp.prev;
-    }
-    
     
     public static int count_hand(){
         if (head != null){

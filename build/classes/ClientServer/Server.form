@@ -37,16 +37,17 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="myHealth" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="myHealthF" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                          <Component id="HealthImage" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="HealthImage" alignment="0" max="32767" attributes="0"/>
                           <Component id="myMana" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="myManaF" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                          <Component id="ManaImage3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="ManaImage3" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
+<<<<<<< Updated upstream
               <EmptySpace pref="63" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -67,6 +68,11 @@
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
+=======
+              <EmptySpace pref="6" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+>>>>>>> Stashed changes
                       <Component id="costoLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ManaImage2" min="-2" max="-2" attributes="0"/>
@@ -74,9 +80,41 @@
                       <Component id="costoLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ManaImage4" min="-2" max="-2" attributes="0"/>
+<<<<<<< Updated upstream
                       <EmptySpace min="-2" pref="331" max="-2" attributes="0"/>
+=======
+                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="playCard" min="-2" pref="204" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="drawCard" min="-2" pref="209" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="passTurn" min="-2" pref="209" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="LeftArrow" min="-2" pref="126" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="cardSlot" min="-2" pref="264" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="RightArrow" min="-2" pref="127" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+              <Component id="historial_prev" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="historial_gui" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="historial_next" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,6 +150,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="playCard" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="passTurn" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="drawCard" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -148,7 +187,17 @@
                       </Group>
                   </Group>
               </Group>
+<<<<<<< Updated upstream
               <EmptySpace pref="78" max="32767" attributes="0"/>
+=======
+              <EmptySpace pref="9" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="historial_gui" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="historial_prev" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="historial_next" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
           </Group>
       </Group>
     </DimensionLayout>
@@ -341,6 +390,35 @@
           <Image iconType="3" name="/Im&#xe1;genes/Sword.jpg"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="drawCard">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Draw a Card"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drawCardActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="historial_gui">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="No cards have been played yet"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="historial_prev">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Previous Play"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historial_prevActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="historial_next">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Next Play"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historial_nextActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
