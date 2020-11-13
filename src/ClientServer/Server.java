@@ -20,6 +20,7 @@ import org.json.simple.parser.ParseException;
 
 public class Server extends javax.swing.JFrame {
     
+    //Creation of the static variables used
     static ServerSocket ss;
     static Socket socket;
     static DataInputStream dinput;
@@ -52,7 +53,7 @@ public class Server extends javax.swing.JFrame {
     static int enemyHealthInt = 1000;
     static int enemyManaInt = 200;
     static int myHealthInt = 1000;
-    static int myManaInt = 2000;
+    static int myManaInt = 200;
     static int contadorTurno = 0;
     static int hand_count = 0;
     static int deck_count = 16;
@@ -68,7 +69,8 @@ public class Server extends javax.swing.JFrame {
     static int game_turn = 1;
     static Node_Double_Linked_Historial selectedtext;
     
-
+    
+    //Method that initiates visual components
     public Server() {
         initComponents();
     }
@@ -325,7 +327,15 @@ public class Server extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
     //Play card button action
+    /*
+     * Method playCardActionPerformed
+     * esta funcion es la encargada de jugar una carta seleccionada y dicta que 
+     * va a pasar cuando se juega la carta en casos especiales, ademas manda mensajes
+     * a client para que se actualicen las variables del lado de client, ademas actualiza
+     * el historial con la carta jugada.
+     */
     private void playCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playCardActionPerformed
         //Checks if its your turn
         if (myTurn == true){
@@ -335,11 +345,10 @@ public class Server extends javax.swing.JFrame {
                 int confirm = JOptionPane.showConfirmDialog(null, "Are you sure?", 
                 "Select an option", JOptionPane.YES_NO_OPTION);
                 if (confirm == 0){
-                        cardType = selectedcard.get_tipo();
-                        //Checks if played card is esbirro                        
+                        cardType = selectedcard.get_tipo();     
+                        //Checks if card played is esbirro type
                         if ("esbirro".equals(cardType)){
                             try {
-                                //Checks if there's enough mana and hechizo7 not active
                                 if (myManaInt - selectedcard.get_costo() >= 0 && hechizo7 == false){
                                     Gson gson1 = new Gson();
                                     if (hechizo1 == true){
@@ -934,6 +943,13 @@ public class Server extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_playCardActionPerformed
     //End turn button action
+    /*
+     * Method passTurnActionPerformed
+     * envia un mensaje serializado que contiene el String endedTurn el cual al
+     * ser recibido por el otro usuario habilita la interfaz del mismo 
+     * y la interfaz de uno se deshabilita, ademas adiciona el 25% de mana maximo
+     * posible.
+     */
     private void passTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTurnActionPerformed
         if (myTurn == true || Ohechizo8 == true){
             try{
@@ -965,7 +981,12 @@ public class Server extends javax.swing.JFrame {
                 "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_passTurnActionPerformed
-
+    //Select a card button
+    /*
+     * Method cardSlotActionPerformed
+     * Este metodo actualiza e instancia el objeto serializable que va a ser enviado
+     * dependiendo de la carta elegida.
+     */
     private void cardSlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cardSlotActionPerformed
         if (myTurn == true){
             if (hand_count == 0){
@@ -995,18 +1016,12 @@ public class Server extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cardSlotActionPerformed
-
+    //Left arrow button action
+    /*
+     * Metodo LeftArrowActionPerformed
+     * Este metodo actualiza la carta elegible al nodo anterior de la lista hand
+     */
     private void LeftArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftArrowActionPerformed
-        if (myTurn == true){
-            if (hand_count > 0){
-                cardSelected = false;
-                selectedcard = selectedcard.next_card();
-                Image_mod(selectedcard.get_nombre());
-            }
-        } 
-    }//GEN-LAST:event_LeftArrowActionPerformed
-
-    private void RightArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightArrowActionPerformed
         if (myTurn == true){
             if (hand_count > 0){
                 cardSelected = false;
@@ -1014,8 +1029,26 @@ public class Server extends javax.swing.JFrame {
                 Image_mod(selectedcard.get_nombre());
             }
         } 
+    }//GEN-LAST:event_LeftArrowActionPerformed
+    //Right arrow button action
+    /*
+     * Metodo LeftArrowActionPerformed
+     * Este metodo actualiza la carta elegible al siguiente nodo de la lista hand
+     */
+    private void RightArrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightArrowActionPerformed
+        if (myTurn == true){
+            if (hand_count > 0){
+                cardSelected = false;
+                selectedcard = selectedcard.next_card();
+                Image_mod(selectedcard.get_nombre());
+            }
+        } 
     }//GEN-LAST:event_RightArrowActionPerformed
-
+    //Draw card button action
+    /*
+     * Metodo drawCardActionPerformed
+     * Se adiciona un nodo nuevo tomando la carta tope de la pila Deck a la lista hand
+     */
     private void drawCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawCardActionPerformed
         if (myTurn == true){
             if (Osecreto17 != true){
@@ -1046,7 +1079,11 @@ public class Server extends javax.swing.JFrame {
             }
         } 
     }//GEN-LAST:event_drawCardActionPerformed
-
+    //Historial previous button action
+    /*
+     * Metodo historial_prevActionPerformed
+     * Este metodo permite visualizar la jugada previa en el historial del GUI
+     */
     private void historial_prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historial_prevActionPerformed
         if (myTurn == true){
            if (Historial.head != null){
@@ -1056,7 +1093,11 @@ public class Server extends javax.swing.JFrame {
            }
        }
     }//GEN-LAST:event_historial_prevActionPerformed
-
+    //Historial next button action
+    /*
+     * Metodo historial_nextActionPerformed
+     * Este metodo permite visualizar la jugada siguiente en el historial del GUI
+     */
     private void historial_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historial_nextActionPerformed
        if (myTurn == true){
            if (Historial.head != null){
@@ -1067,7 +1108,15 @@ public class Server extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_historial_nextActionPerformed
 
-    
+    /*
+     * Metodo main
+     * Este metodo se encarga de la mecanica del juego, primero se encarga de generar
+     * un Deck y un Hand para el jugador, luego escucha en un socket para una conexion
+     * al recibirla verifica si las condiciones de algunos secretos se cumplen para 
+     * hacer su efecto ademas revisa activamente por las condiciones de finalizacion del juego
+     * luego, al recibir un objeto del lado opuesto lo deserializa y lo categoriza y
+     * lo implementa a su propio lado del juego para que la carta tome efecto.
+     */
     public static void main(String args[]) {
         int deck_count = 0;
         int card_getter;
@@ -1100,11 +1149,6 @@ public class Server extends javax.swing.JFrame {
                     b+=5;
                 }
                 System.out.println(list);
-                    
-                
-                //while (deck < 20) {
-                  //  Deck.insert(cardList[i]);
-                    //}
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -1120,23 +1164,14 @@ public class Server extends javax.swing.JFrame {
             }
         });
         
-        /**
+        
         while (deck_count < 20){
             card_getter = rand.nextInt(30);
             Deck.insert(list.get(card_getter).get(0),list.get(card_getter).get(1),
                     Integer.parseInt(list.get(card_getter).get(2)),Integer.parseInt(list.get(card_getter).get(3)),Integer.parseInt(list.get(card_getter).get(4)));
             deck_count += 1;
-        }**/
-        
-        while (deck_count < 30){ 
-            Deck.insert(list.get(deck_count).get(0),list.get(deck_count).get(1),
-                    Integer.parseInt(list.get(deck_count).get(2)),Integer.parseInt(list.get(deck_count).get(3)),Integer.parseInt(list.get(deck_count).get(4)));
-            deck_count += 1;
         }
-        //Deck.insert(list.get(15).get(0),list.get(15).get(1),
-          //          Integer.parseInt(list.get(15).get(2)),Integer.parseInt(list.get(15).get(3)),Integer.parseInt(list.get(15).get(4)));
             
-        
         Hand_Creation(Deck);
         Node_Double_Linked head_card = Hand.get_head();
         selectedcard = head_card;
@@ -1613,7 +1648,14 @@ public class Server extends javax.swing.JFrame {
         
     }
     
-    
+    /*
+     * Metodo parseCardObject
+     * Este metodo realiza la lectura de cada carta predefinada
+     * en un archivo JSON externo y las adiciona a una Array Unit para luego ser
+     * utilizada en el juego.
+     * @param card
+     * @param unit 
+     */
     private static void parseCardObject(JSONObject card, ArrayList unit) 
     {
         //Get card object within list
@@ -1641,19 +1683,23 @@ public class Server extends javax.swing.JFrame {
         unit.add(nombre);
         unit.add(costo);
         unit.add(id);
-        unit.add(ataque);        
-        
-        //Deck.insert(tipo,nombre,costo,id,ataque);
+        unit.add(ataque);
     
     }
     
+    /*
+     * Metodo Hand_Creation
+     * Este metodo toma las primeras 4 cartas del tope de la pila Deck, las adiciona
+     * a Hand y las elimina del Deck.
+     * @param Deck
+     */
     public static void Hand_Creation(Pila Deck){
         String tipo = Deck.get_tipo();
         String nombre = Deck.get_nombre();
         int costo = Deck.get_costo();
         int id = Deck.get_id();
         int ataque = Deck.get_ataque();
-        while (hand_count < 29){
+        while (hand_count < 4){
             Hand.addNode(tipo,nombre,costo,id,ataque);
             Deck.next();
             hand_count += 1;
@@ -1665,6 +1711,12 @@ public class Server extends javax.swing.JFrame {
         }
     }
     
+    /*
+     * Metodo Image_mod
+     * Este metodo actualiza la carta mostrada en el GUI para que represente la carta
+     * de la lista respectiva.
+     * @param nombre
+     */
     public void Image_mod(String nombre){
         switch(nombre){
             case "Barbarian":

@@ -1,8 +1,5 @@
 package ClientServer;
 
-import static ClientServer.Server.Deck;
-import static ClientServer.Server.Hand;
-import static ClientServer.Server.selectedtext;
 import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -358,7 +355,7 @@ public class Client extends javax.swing.JFrame {
         if (myTurn == true){
             if (hand_count > 0){
                 cardSelected = false;
-                selectedcard = selectedcard.next_card();
+                selectedcard = selectedcard.previous_card();
                 Image_mod(selectedcard.get_nombre()); 
             }
         }
@@ -368,7 +365,7 @@ public class Client extends javax.swing.JFrame {
         if (myTurn == true){
             if (hand_count > 0){
                 cardSelected = false;
-                selectedcard = selectedcard.previous_card();
+                selectedcard = selectedcard.next_card();
                 Image_mod(selectedcard.get_nombre());
             }
         }
@@ -1043,6 +1040,16 @@ public class Client extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_historial_nextActionPerformed
     
+    /*
+     * Metodo main
+     * Este metodo se encarga de la mecanica del juego, primero se encarga de generar
+     * un Deck y un Hand para el jugador, luego pide el ingreso del socket al cual
+     * se desea unir y al lograrlo verifica si las condiciones de algunos secretos se cumplen para 
+     * hacer su efecto ademas revisa activamente por las condiciones de finalizacion del juego
+     * luego, al recibir un objeto del lado opuesto lo deserializa y lo categoriza y
+     * lo implementa a su propio lado del juego para que la carta tome efecto.
+     */
+    
     public static void main(String args[]) {
         int deck_count = 0;
         int card_getter;
@@ -1075,11 +1082,6 @@ public class Client extends javax.swing.JFrame {
                     b+=5;
                 }
                 System.out.println(list);
-                    
-                
-                //while (deck < 20) {
-                  //  Deck.insert(cardList[i]);
-                    //}
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -1089,25 +1091,12 @@ public class Client extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
-        
-        /**
         while (deck_count < 20){
             card_getter = rand.nextInt(30);
             Deck.insert(list.get(card_getter).get(0),list.get(card_getter).get(1),
                     Integer.parseInt(list.get(card_getter).get(2)),Integer.parseInt(list.get(card_getter).get(3)),Integer.parseInt(list.get(card_getter).get(4)));
             deck_count += 1;
-        }
-        **/
-        
-        while (deck_count < 30){ 
-            Deck.insert(list.get(deck_count).get(0),list.get(deck_count).get(1),
-                    Integer.parseInt(list.get(deck_count).get(2)),Integer.parseInt(list.get(deck_count).get(3)),Integer.parseInt(list.get(deck_count).get(4)));
-            deck_count += 1;
-        }
-        
-        /**Deck.insert(list.get(17).get(0),list.get(17).get(1),
-                    Integer.parseInt(list.get(17).get(2)),Integer.parseInt(list.get(17).get(3)),Integer.parseInt(list.get(17).get(4)));
-          **/  
+        } 
         
         Hand_Creation(Deck);
         Node_Double_Linked head_card = Hand.get_head();
@@ -1637,7 +1626,7 @@ public class Client extends javax.swing.JFrame {
         int costo = Deck.get_costo();
         int id = Deck.get_id();
         int ataque = Deck.get_ataque();
-        while (hand_count < 29){
+        while (hand_count < 4){
             Hand.addNode(tipo,nombre,costo,id,ataque);
             Deck.next();
             hand_count += 1;
